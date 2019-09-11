@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="防止偷懶日記Day6
+今天來稍微調整一下UI
+接續昨天的畫面，今天稍微修改一下
+大概長這樣">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Swift隨手紀錄Day6-UI調整"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Swift隨手紀錄Day6-UI調整 - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2017/06/27/Swift隨手紀錄Day6-UI調整/">
+                Swift隨手紀錄Day6-UI調整
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-06-27</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>防止偷懶日記Day6</p>
+<p>今天來稍微調整一下UI</p>
+<p>接續昨天的畫面，今天稍微修改一下</p>
+<p>大概長這樣</p>
+<a id="more"></a>
+<img src="/donaldwu.github.com/2017/06/27/Swift隨手紀錄Day6-UI調整/RecordUI.png" alt="RecordUI.png" title="">
+<p>首先是將原來的UILabel換成UITextView</p>
+<p>然後是新增一個UILabel來顯示棒次跟守備位置</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> orderLabel: <span class="type">UILabel</span> = &#123;</div><div class="line">    <span class="keyword">let</span> label = <span class="type">UILabel</span>()</div><div class="line">    label.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">    label.backgroundColor = .orange</div><div class="line">    label.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">12</span>)</div><div class="line">    label.textAlignment = .center</div><div class="line">    label.text = <span class="string">"四棒/投手"</span></div><div class="line">    <span class="keyword">return</span> label</div><div class="line">&#125;()</div><div class="line"></div><div class="line"><span class="keyword">let</span> recordText: <span class="type">UITextView</span> = &#123;</div><div class="line">    <span class="keyword">let</span> text = <span class="type">UITextView</span>()</div><div class="line">    text.textAlignment = .<span class="keyword">left</span></div><div class="line">    text.text = <span class="string">"一安 / 三振 / 保送 / 二安"</span></div><div class="line">    text.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">14</span>)</div><div class="line">    text.backgroundColor = .yellow</div><div class="line">    text.isScrollEnabled = <span class="literal">false</span></div><div class="line">    text.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">    <span class="keyword">return</span> text</div><div class="line">&#125;()</div></pre></td></tr></table></figure>
+<p>上面分別是新增的棒次label跟用來取代昨天中間label的textView</p>
+<p>再來是修改一下button的設定讓點擊可以作用</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> sentButton: <span class="type">UIButton</span> = &#123;</div><div class="line">    <span class="keyword">let</span> button = <span class="type">UIButton</span>()</div><div class="line">    button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">    button.backgroundColor = .purple</div><div class="line">    button.layer.cornerRadius = <span class="number">5</span></div><div class="line">    button.layer.borderColor = <span class="type">UIColor</span>.blue.cgColor</div><div class="line">    button.layer.borderWidth = <span class="number">2</span></div><div class="line">    button.setTitle(<span class="string">"UPDATE"</span>, <span class="keyword">for</span>: .normal)</div><div class="line">    button.titleLabel?.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">13</span>)</div><div class="line">    button.addTarget(<span class="keyword">self</span>, action: #selector(sentRecord), <span class="keyword">for</span>: .touchUpInside)</div><div class="line">    <span class="keyword">return</span> button</div><div class="line">&#125;()</div></pre></td></tr></table></figure>
+<p>將let改成lazy var，不這樣改動後面新增的addTarget不會觸發，原因在另外找時間寫一篇來討論</p>
+<p>接下來調整一下layout的setupView()</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">setupView</span><span class="params">()</span></span> &#123;</div><div class="line">    backgroundColor = .yellow</div><div class="line">    addSubview(profileImage)</div><div class="line">    addSubview(recordText)</div><div class="line">    addSubview(sentButton)</div><div class="line">    addSubview(orderLabel)</div><div class="line">    </div><div class="line">    profileImage.topAnchor.constraint(equalTo: <span class="keyword">self</span>.topAnchor).isActive = <span class="literal">true</span></div><div class="line">    profileImage.leftAnchor.constraint(equalTo: <span class="keyword">self</span>.leftAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">    profileImage.heightAnchor.constraint(equalToConstant: <span class="number">48</span>).isActive = <span class="literal">true</span></div><div class="line">    profileImage.widthAnchor.constraint(equalToConstant: <span class="number">48</span>).isActive = <span class="literal">true</span></div><div class="line">    </div><div class="line">    sentButton.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.centerYAnchor).isActive = <span class="literal">true</span></div><div class="line">    sentButton.rightAnchor.constraint(equalTo: <span class="keyword">self</span>.rightAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">    sentButton.widthAnchor.constraint(equalToConstant: <span class="number">60</span>).isActive = <span class="literal">true</span></div><div class="line">    sentButton.heightAnchor.constraint(equalToConstant: <span class="number">32</span>).isActive = <span class="literal">true</span></div><div class="line">    </div><div class="line">    recordText.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">    recordText.rightAnchor.constraint(equalTo: sentButton.leftAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">    recordText.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.centerYAnchor).isActive = <span class="literal">true</span></div><div class="line">    recordText.heightAnchor.constraint(equalToConstant: <span class="number">32</span>).isActive = <span class="literal">true</span></div><div class="line">    </div><div class="line">    orderLabel.topAnchor.constraint(equalTo: profileImage.bottomAnchor).isActive = <span class="literal">true</span></div><div class="line">    orderLabel.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.bottomAnchor).isActive = <span class="literal">true</span></div><div class="line">    orderLabel.leftAnchor.constraint(equalTo: <span class="keyword">self</span>.leftAnchor).isActive = <span class="literal">true</span></div><div class="line">    orderLabel.rightAnchor.constraint(equalTo: recordText.leftAnchor).isActive = <span class="literal">true</span> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最後新增一個function<code>sentRecord()</code>來描述button被點擊時的動作，先讓console印出點字串來確認按鈕有作用</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">sentRecord</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"Hit Button"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/Swift/">#Swift</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:donaldwu1101@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'Donaldwu';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

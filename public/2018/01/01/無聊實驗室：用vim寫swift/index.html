@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="目前想要開發Swift項目，Xcode絕對是第一個會被拿出來的選項
+但不用Xcode能不能用來寫Swif呢？
+喂了喂估狗大神，看到了一些蠻有趣的結果
+本篇就來配置一下用vim編輯.swift文檔，並編譯出簡單的結果吧">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="無聊實驗室：用vim寫swift"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>無聊實驗室：用vim寫swift - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2018/01/01/無聊實驗室：用vim寫swift/">
+                無聊實驗室：用vim寫swift
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-01-01</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>目前想要開發Swift項目，Xcode絕對是第一個會被拿出來的選項</p>
+<p>但不用Xcode能不能用來寫Swif呢？</p>
+<p>喂了喂估狗大神，看到了一些蠻有趣的結果</p>
+<p>本篇就來配置一下用vim編輯.swift文檔，並編譯出簡單的結果吧</p>
+<a id="more"></a>
+<p>首先，要編譯當然還是需要Xcode裡面的編譯命令拉，這樣到底意義在哪裡拉ＸＤ （謎之音：潮啊)</p>
+<p>打開終端機，輸入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo xcode-select -switch /Applications/Xcode.app</div></pre></td></tr></table></figure>
+<p>其中的路徑請根據您的Xcode.app所在路徑做調整</p>
+<p>設置完成後輸入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcrun swift</div></pre></td></tr></table></figure>
+<p>這樣就可以使用xcrun幫我們編譯摟</p>
+<img src="/donaldwu.github.com/2018/01/01/無聊實驗室：用vim寫swift/swift.png" alt="swift.png" title="">
+<p>在這模式下可以輸入<code>:help</code>查看幫助，要離開則可以輸入<code>:exit</code></p>
+<p>如果只是簡單的.swift檔案想看編譯結果可以直接執行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcrun swift example.swift</div></pre></td></tr></table></figure>
+<p>但是這當然不是我們最終的目標，我想看到的是視窗上半部我可以開著vim編輯文件</p>
+<p>視窗下半部則是隨時顯示編譯的結果，但這樣就需要一個幫手在我儲存文件時去執行swift的編譯</p>
+<p>每次都要再打一次<code>xcrun swift</code>實在是不科學</p>
+<p><a href="https://github.com/guard/guard" target="_blank" rel="external">這邊的Guard就可以幫我們解決這個問題</a></p>
+<p>用gem安裝一下，終端機輸入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gem install guard-shell</div></pre></td></tr></table></figure>
+<p>安裝完之後來試用一下吧，將終端機位置移動到想要編譯的.swift文檔目錄下</p>
+<p>執行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">guard init shell</div></pre></td></tr></table></figure>
+<p>這樣便會產生一個Guardfile文件，貼入以下內容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">guard :shell do</div><div class="line">  watch(/(.*).swift/) do |m|</div><div class="line">    puts &quot;-&quot; * 10</div><div class="line">    puts &quot;Start Building&quot;</div><div class="line">    puts &quot;-&quot; * 10</div><div class="line">    puts `xcrun swift #&#123;m[0]&#125;`</div><div class="line">    puts &quot;-&quot; * 10</div><div class="line">    puts &quot;Build Ended&quot;</div><div class="line">    puts &quot;-&quot; * 10</div><div class="line">  end</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>主要就是在觀測到.swift檔案編輯時印出分隔線並執行<code>xcrun swift</code></p>
+<p>要啟動就在終端機目錄下輸入<code>guard</code></p>
+<p>Guard就會開始依照Guardfile裡面的設定監看所在目錄下的變動了</p>
+<p>實際使用就看看下面的gif吧</p>
+<img src="/donaldwu.github.com/2018/01/01/無聊實驗室：用vim寫swift/guard.gif" alt="guard.gif" title="">
+<p>不過到這裡其實最最最麻煩的問題其實是</p>
+<p>現在沒有autocomplete要寫code太困難了啊!!!!</p>
+<p>為了解決這個問題，繼續餵狗的結果我幫我的vim裝了以下兩個插件</p>
+<p><a href="https://github.com/Valloric/YouCompleteMe" target="_blank" rel="external"> YouCompleteMe </a></p>
+<p><a href="https://github.com/toyamarinyon/vim-swift" target="_blank" rel="external"> vim-swift </a></p>
+<p>試用的結果…離實際能拿來開發還有極度遙遠的距離，慢慢研究吧ＱＱ</p>
+<p>2018第一篇廢文就到此結束，找資料跟實際安裝的過程中也有不少新的發現</p>
+<p>期許今年的自己能夠產出更多的廢文，有更多的發現．</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/vim/">#vim</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:donaldwu1101@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'Donaldwu';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

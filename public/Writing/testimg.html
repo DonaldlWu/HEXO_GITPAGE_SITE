@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="1234567891011121314151617let nextButton: UIButton = &amp;#123;        let button = UIButton()        button.backgroundColor = .gray        button.setTitle(&quot;next&amp;gt;&quot;, for: .normal)        button.translatesAutoresizingMaskIntoConstraints = false        button.addTarget(self, action: #selector(btnNextPressed), for: .touchUpInside)        return button    &amp;#125;()        let prevButton: UIButton = &amp;#123;        let button = UIButton()        button.backgroundColor = .gray        button.setTitle(&quot;&amp;lt;prev&quot;, for: .normal)        button.translatesAutoresizingMaskIntoConstraints = false        button.addTarget(self, action: #selector(btnPrevPressed), for: .touchUpInside)        return button    &amp;#125;()
+為了確實知道按鈕大小的範圍我們先設定灰色當按鈕的背景色
+然後設定按鈕的標題
+最後加入點擊的動作，為了讓系統知道我們點擊之後要做什麼
+在#selector()內我們必須指定兩個Function
+分別為btnNextPressed與btnPrevPressed
+寫到這裡Xcode還不知道這兩個是啥東西
+所以我們就先來定義一下這兩個Function
+1234567891011func btnNextPressed() &amp;#123;	print(&quot;Press Next&quot;)&amp;#125;    func btnPrevPressed() &amp;#123;	print(&quot;Press Previous&quot;)&amp;#125;
+2017/7/15
+Swift隨手紀錄Day25-Fetch Data Form Firebase Database
+防止偷懶Day25
+在完成註冊手續之後
+接下來就是讓使用者可以新增隊伍然後在HomeController會去Fetch使用者新增過的隊伍資料
+然後用tableView顯示出來">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="backup"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>backup - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa fa-tags" aria-hidden="true"></i></a>
+        
+            <h1 id="main-title" class="title">backup</h1>
+        
+    </div>
+</header>
+        
+            <section class="main">
+                
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/Writing/testimg.html">
+                backup
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-06-22</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> nextButton: <span class="type">UIButton</span> = &#123;</div><div class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</div><div class="line">        button.backgroundColor = .gray</div><div class="line">        button.setTitle(<span class="string">"next&gt;"</span>, <span class="keyword">for</span>: .normal)</div><div class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">        button.addTarget(<span class="keyword">self</span>, action: #selector(btnNextPressed), <span class="keyword">for</span>: .touchUpInside)</div><div class="line">        <span class="keyword">return</span> button</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> prevButton: <span class="type">UIButton</span> = &#123;</div><div class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</div><div class="line">        button.backgroundColor = .gray</div><div class="line">        button.setTitle(<span class="string">"&lt;prev"</span>, <span class="keyword">for</span>: .normal)</div><div class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">        button.addTarget(<span class="keyword">self</span>, action: #selector(btnPrevPressed), <span class="keyword">for</span>: .touchUpInside)</div><div class="line">        <span class="keyword">return</span> button</div><div class="line">    &#125;()</div></pre></td></tr></table></figure>
+<p>為了確實知道按鈕大小的範圍我們先設定灰色當按鈕的背景色</p>
+<p>然後設定按鈕的標題</p>
+<p>最後加入點擊的動作，為了讓系統知道我們點擊之後要做什麼</p>
+<p>在<code>#selector()</code>內我們必須指定兩個Function</p>
+<p>分別為<code>btnNextPressed</code>與<code>btnPrevPressed</code></p>
+<p>寫到這裡Xcode還不知道這兩個是啥東西</p>
+<p>所以我們就先來定義一下這兩個Function</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">btnNextPressed</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">	<span class="built_in">print</span>(<span class="string">"Press Next"</span>)</div><div class="line"></div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">btnPrevPressed</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">	<span class="built_in">print</span>(<span class="string">"Press Previous"</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2017/7/15</p>
+<p>Swift隨手紀錄Day25-Fetch Data Form Firebase Database</p>
+<p>防止偷懶Day25</p>
+<p>在完成註冊手續之後</p>
+<p>接下來就是讓使用者可以新增隊伍然後在HomeController會去Fetch使用者新增過的隊伍資料</p>
+<p>然後用tableView顯示出來</p>
+<a id="more"></a>
+<p>第一步先來看看目前想到在Database儲存資料的形式</p>
+
+<p>User的地方是昨天處理好的部分，當使用者註冊時會將資料儲存在一個uid底下</p>
+<p>包含了使用者的email跟name這兩項資訊</p>
+<p>而今天要讓使用者在新增球隊資訊之後</p>
+<p>會在Team底下創造一個tid，裡面會儲存球隊名稱的字串TeamName</p>
+<p>以及這個team屬於哪個使用者的uid</p>
+<p>開工第一步先來把該有的工具準備好</p>
+<p>在Model裡面新增一個定義User這個class的new file</p>
+<p>命名成User.swift</p>
+<p>然後修改一下Team.swift這個class的內容</p>
+<p>內容如下</p>
+<p>Team.swift</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Team</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> uid: <span class="type">String</span>?</div><div class="line">    <span class="keyword">var</span> teamName: <span class="type">String</span>?</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>User.swift</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> name: <span class="type">String</span>?</div><div class="line">    <span class="keyword">var</span> email: <span class="type">String</span>?</div><div class="line">    <span class="keyword">var</span> uid: <span class="type">String</span>?</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然後來到要處理資料的HomeController</p>
+<p>一樣先看看程式碼再來一步一步處理</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"><span class="keyword">import</span> Firebase</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeController</span>: <span class="title">UITableViewController</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> cellId = <span class="string">"cellId"</span></div><div class="line">    <span class="keyword">var</span> teams = [<span class="type">Team</span>]()</div><div class="line">    <span class="keyword">var</span> user = <span class="type">User</span>()</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="keyword">var</span> prefersStatusBarHidden: <span class="type">Bool</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> newTeamButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">"New Team"</span>, style: .plain, target: <span class="keyword">self</span>, action: #selector(toSetNewTeamController))</div><div class="line">        navigationItem.rightBarButtonItem = newTeamButton</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> logoutButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">"Logout"</span>, style: .plain, target: <span class="keyword">self</span>, action: #selector(handleLogout))</div><div class="line">        navigationItem.leftBarButtonItem = logoutButton</div><div class="line">        checkUserIsLogin()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">fetchTeam</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="type">FIRDatabase</span>.database().reference().child(<span class="string">"Team"</span>).observe(.childAdded, with: &#123; (snapshot) <span class="keyword">in</span></div><div class="line">            <span class="keyword">if</span> <span class="keyword">let</span> dictionary = snapshot.value <span class="keyword">as</span>? [<span class="type">String</span>: <span class="type">AnyObject</span>] &#123;</div><div class="line">                <span class="keyword">let</span> team = <span class="type">Team</span>()</div><div class="line">                team.setValuesForKeys(dictionary)</div><div class="line">                <span class="keyword">if</span> team.uid == <span class="keyword">self</span>.user.uid &#123;</div><div class="line">                    <span class="keyword">self</span>.teams.append(team)</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="type">DispatchQueue</span>.main.async &#123;</div><div class="line">                    <span class="keyword">self</span>.tableView.reloadData()</div><div class="line">                &#125;</div><div class="line">                <span class="built_in">print</span>(team.teamName <span class="keyword">as</span> <span class="type">Any</span>, team.uid <span class="keyword">as</span> <span class="type">Any</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;, withCancel: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">checkUserIsLogin</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">if</span> <span class="type">FIRAuth</span>.auth()?.currentUser?.uid == <span class="literal">nil</span> &#123;</div><div class="line">            perform(#selector(handleLogout), with: <span class="literal">nil</span>, afterDelay: <span class="number">0</span>)</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            fetchUserSetNavBarTitle()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">fetchUserSetNavBarTitle</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> uid = <span class="type">FIRAuth</span>.auth()?.currentUser?.uid <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span></div><div class="line">        &#125;</div><div class="line">        <span class="type">FIRDatabase</span>.database().reference().child(<span class="string">"User"</span>).child(uid).observeSingleEvent(of: .value, with: &#123; (snapshot) <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(snapshot)</div><div class="line">            <span class="keyword">if</span> <span class="keyword">let</span> dictionary = snapshot.value <span class="keyword">as</span>? [<span class="type">String</span>: <span class="type">Any</span>] &#123;</div><div class="line">                <span class="keyword">self</span>.user.uid = snapshot.key</div><div class="line">                <span class="keyword">self</span>.navigationItem.title = dictionary[<span class="string">"name"</span>] <span class="keyword">as</span>? <span class="type">String</span></div><div class="line">                <span class="keyword">self</span>.fetchTeam()</div><div class="line">            &#125;</div><div class="line">        &#125;, withCancel: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">handleLogout</span><span class="params">()</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">do</span> &#123;</div><div class="line">            <span class="keyword">try</span> <span class="type">FIRAuth</span>.auth()?.signOut()</div><div class="line">        &#125; <span class="keyword">catch</span> <span class="keyword">let</span> logoutError &#123;</div><div class="line">            <span class="built_in">print</span>(logoutError)</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">self</span>.teams.removeAll()</div><div class="line">        <span class="keyword">let</span> loginController = <span class="type">LoginController</span>()</div><div class="line">        loginController.homeController = <span class="keyword">self</span></div><div class="line">        present(loginController, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">toSetNewTeamController</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> alertController = <span class="type">UIAlertController</span>(title: <span class="string">"Add New Team"</span>, message: <span class="string">""</span>, preferredStyle: .alert)</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> saveAction = <span class="type">UIAlertAction</span>(title: <span class="string">"OK"</span>, style: .<span class="keyword">default</span>, handler: &#123;</div><div class="line">            alert -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">            </div><div class="line">            <span class="keyword">let</span> firstTextField = alertController.textFields![<span class="number">0</span>] <span class="keyword">as</span> <span class="type">UITextField</span></div><div class="line">            <span class="keyword">let</span> controller = <span class="type">SetNewTeamController</span>()</div><div class="line">            </div><div class="line">            <span class="keyword">if</span> firstTextField.text! != <span class="string">""</span> &#123;</div><div class="line">                controller.teamTitle = firstTextField.text!</div><div class="line">                <span class="keyword">let</span> uid = <span class="keyword">self</span>.user.uid</div><div class="line">                <span class="keyword">let</span> ref = <span class="type">FIRDatabase</span>.database().reference().child(<span class="string">"Team"</span>)</div><div class="line">                <span class="keyword">let</span> teamRef = ref.childByAutoId()</div><div class="line">                <span class="keyword">let</span> value: [<span class="type">AnyHashable</span>: <span class="type">Any</span>] = [<span class="string">"TeamName"</span>: firstTextField.text!, <span class="string">"uid"</span>: uid <span class="keyword">as</span> <span class="type">Any</span>]</div><div class="line">                teamRef.updateChildValues(value)</div><div class="line">                <span class="keyword">self</span>.present(<span class="type">UINavigationController</span>(rootViewController: controller), animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span></div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;)</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> cancelAction = <span class="type">UIAlertAction</span>(title: <span class="string">"Cancel"</span>, style: .<span class="keyword">default</span>, handler: &#123;</div><div class="line">            (action : <span class="type">UIAlertAction</span>!) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">        &#125;)</div><div class="line">        </div><div class="line">        alertController.addTextField &#123; (textField : <span class="type">UITextField</span>!) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">            textField.placeholder = <span class="string">"Enter Team Name"</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        alertController.addAction(saveAction)</div><div class="line">        alertController.addAction(cancelAction)</div><div class="line">        </div><div class="line">        <span class="keyword">self</span>.present(alertController, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        <span class="keyword">return</span> teams.<span class="built_in">count</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line">        <span class="keyword">let</span> cell = <span class="type">UITableViewCell</span>(style: .subtitle, reuseIdentifier: cellId)</div><div class="line">        </div><div class="line">        cell.textLabel?.text = teams[indexPath.row].teamName</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> cell</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, didSelectRowAt indexPath: IndexPath)</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> controller = <span class="type">SetNewTeamController</span>()</div><div class="line">        controller.teamTitle = teams[indexPath.row].teamName</div><div class="line">        present(<span class="type">UINavigationController</span>(rootViewController: controller), animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第一步當然是實作讓使用者新增資料到Database上</p>
+<p>之前在<code>toSetNewTeamController</code>這個function裡面實作了當使用者點擊右上方的Add Member時</p>
+<p>會跳出一個AlertController讓使用者輸入新增球隊的名稱</p>
+<p>在第87~91行我們讓使用者把現有的uid跟新增的teamName儲存到Database上的Team節點下</p>
+<p>並自動產生一個id當子樹，不過這裡的uid怎麼來的？</p>
+<p>當然我們就需要剛剛準備好的工具拉</p>
+<p>第7, 8行實作一個teams來儲存Fetch到的Team內容</p>
+<p>以及一個user來儲存Fetch到的User內容</p>
+<p>接下來在<code>fetchUserSetNavBarTitle</code>這個function裡面第56行儲存使用者的uid</p>
+<p>這樣就有自己的uid可以使用拉</p>
+<p>然後就來實作Fetch隊伍資料的<code>fetchTeam</code>這個function</p>
+<p>首先，<code>fetchTeam</code>會在<code>fetchUserSetNavBarTitle</code>拿到使用者的資訊之後執行</p>
+<p>以確保自己儲存的uid不會是空值</p>
+<p>當<code>fetchTeam</code>執行時會去Database觀察Team這個子樹下的資料</p>
+<p>如果裡面的uid跟現在使用者的uid是一樣的</p>
+<p>就代表這隻Team是這個使用者所創建的</p>
+<p>那就把這筆資料儲存到前面創好的teams裡面</p>
+<p>最後重新整理現在的tableView內容</p>
+<p>p.s.這裡要記得UI必須在主線程裡更新</p>
+<p>但我們還沒處理tableView的內容</p>
+<p>所以就修改一下<code>numberOfRowsInSection</code>回傳儲存的隊伍數量teams.count</p>
+<p>以及<code>cellForRowAt</code>讓cell的文字顯示隊伍名稱teamName</p>
+<p>還有<code>didSelectRowAt</code>所傳送的teamTitle</p>
+<p>最後要記得處理當使用者登出時要把teams的內容移除</p>
+<p>不然登入其他帳號時teams的內容可能還會儲存在裡面</p>
+
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+            </section>
+        
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:donaldwu1101@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'Donaldwu';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

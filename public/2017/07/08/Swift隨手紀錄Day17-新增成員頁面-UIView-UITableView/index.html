@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="接續前兩天做的隊伍成員畫面SetNewTeamController
+當時在實作時直接將整個畫面都用TableView製作
+但是幾經思考，我覺得需要多一個按鈕在這個頁面上
+使用者應該是經由這個按鈕來確認進入紀錄畫面
+而非使用navigationItem的rightItem">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Swift隨手紀錄Day17-新增成員頁面-UIView + UITableView"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Swift隨手紀錄Day17-新增成員頁面-UIView + UITableView - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2017/07/08/Swift隨手紀錄Day17-新增成員頁面-UIView-UITableView/">
+                Swift隨手紀錄Day17-新增成員頁面-UIView + UITableView
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-07-08</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>接續前兩天做的隊伍成員畫面SetNewTeamController</p>
+<p>當時在實作時直接將整個畫面都用TableView製作</p>
+<p>但是幾經思考，我覺得需要多一個按鈕在這個頁面上</p>
+<p>使用者應該是經由這個按鈕來確認進入紀錄畫面</p>
+<p>而非使用navigationItem的rightItem</p>
+<a id="more"></a>
+<p>為此，我認為用一個UIViewController當主體</p>
+<p>在上面再另外新增一個TableView是比較好的做法</p>
+<p>首先一樣先看看完工的模樣</p>
+<img src="/donaldwu.github.com/2017/07/08/Swift隨手紀錄Day17-新增成員頁面-UIView-UITableView/Day17SetNewTeam.gif" alt="Day17SetNewTeam.gif" title="">
+<p>最底層是一個UIView，上面放一個tableView跟一個button作為subView</p>
+<p>就來看看在程式碼內如何做出這樣的效果吧</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SetNewTeamController</span>: <span class="title">UIViewController</span>, <span class="title">UITableViewDelegate</span>, <span class="title">UITableViewDataSource</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> cellId = <span class="string">"cellId"</span></div><div class="line">    <span class="keyword">var</span> teamTitle: <span class="type">String</span>?</div><div class="line">    <span class="keyword">private</span> <span class="keyword">var</span> tableView: <span class="type">UITableView</span>!</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="keyword">var</span> prefersStatusBarHidden: <span class="type">Bool</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> startButton: <span class="type">UIButton</span> = &#123;</div><div class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</div><div class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">        button.backgroundColor = .purple</div><div class="line">        button.layer.cornerRadius = <span class="number">5</span></div><div class="line">        button.layer.borderColor = <span class="type">UIColor</span>.blue.cgColor</div><div class="line">        button.layer.borderWidth = <span class="number">2</span></div><div class="line">        button.setTitle(<span class="string">"START"</span>, <span class="keyword">for</span>: .normal)</div><div class="line">        button.titleLabel?.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">13</span>)</div><div class="line">        button.addTarget(<span class="keyword">self</span>, action: #selector(toRecordController), <span class="keyword">for</span>: .touchUpInside)</div><div class="line">        <span class="keyword">return</span> button</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        view.backgroundColor = .white</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> backButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">"BACK"</span>, style: .done, target: <span class="keyword">self</span>, action: #selector(backHome))</div><div class="line">        <span class="keyword">let</span> addButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">"ADD MEMBER"</span>, style: .plain, target: <span class="keyword">self</span>, action: #selector(toAddMemberController))</div><div class="line">        navigationItem.title = teamTitle</div><div class="line">        navigationItem.leftBarButtonItem = backButton</div><div class="line">        navigationItem.rightBarButtonItem = addButton</div><div class="line">        </div><div class="line">        tableView = <span class="type">UITableView</span>()</div><div class="line">        tableView.register(<span class="type">UITableViewCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: cellId)</div><div class="line">        tableView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">        tableView.dataSource = <span class="keyword">self</span></div><div class="line">        tableView.delegate = <span class="keyword">self</span></div><div class="line">        </div><div class="line">        view.addSubview(tableView)</div><div class="line">        view.addSubview(startButton)</div><div class="line">        </div><div class="line">        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = <span class="literal">true</span></div><div class="line">        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = <span class="literal">true</span></div><div class="line">        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = <span class="literal">true</span></div><div class="line">        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -<span class="number">72</span>).isActive = <span class="literal">true</span></div><div class="line">        </div><div class="line">        startButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">        startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></div><div class="line">        startButton.widthAnchor.constraint(equalToConstant: <span class="number">72</span>).isActive = <span class="literal">true</span></div><div class="line">        startButton.heightAnchor.constraint(equalToConstant: <span class="number">48</span>).isActive = <span class="literal">true</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">backHome</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">self</span>.dismiss(animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">toAddMemberController</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> controller = <span class="type">AddMemberController</span>()</div><div class="line">        present(<span class="type">UINavigationController</span>(rootViewController: controller), animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">toRecordController</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> controller = <span class="type">RecordController</span>(collectionViewLayout: <span class="type">UICollectionViewFlowLayout</span>())</div><div class="line">        present(<span class="type">UINavigationController</span>(rootViewController: controller), animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">numberOfSections</span><span class="params">(<span class="keyword">in</span> tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">1</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">5</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line">        <span class="keyword">let</span> cell = <span class="type">UITableViewCell</span>(style: <span class="type">UITableViewCellStyle</span>.value1, reuseIdentifier: cellId)</div><div class="line">        cell.textLabel?.text = <span class="string">"MEMBER HERE"</span></div><div class="line">        <span class="keyword">return</span> cell</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先就是把原本是UITableViewController子類別的SetNewTeamController修改一下</p>
+<p>如同前面所提到的，我們需要一個UIViewController跟一個UITableView</p>
+<p>因此繼承UIViewController, UITableViewDelegate, UITableViewDataSource這三個類別</p>
+<p>然後宣告一個變數tableView</p>
+<p>在viewDidLoad裡面(36~40)實作、註冊、設定delegate跟datasource</p>
+<p>然後將tableView作為UIView的subView加入畫面</p>
+<p>最後設定anchor(45~48)來決定tableView的大小</p>
+<p>在這裡讓tableView上方跟左右對齊整個畫面</p>
+<p>下方則向上縮72Point，以留一部分空間放置新增的button</p>
+<p>後面一樣實作<code>numberOfSections</code>、<code>numberOfRowsInSection</code>跟<code>cellForRowAt</code></p>
+<p>接下來就是新增一個按鈕一樣新增到畫面上</p>
+<p>然後可以看到在navigationItem的rightItem我將動作從toRecordController換成了toAddMemberController</p>
+<p>這就是下一篇要製作來新增隊伍成員的畫面．</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/Swift/">#Swift</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:donaldwu1101@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'Donaldwu';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

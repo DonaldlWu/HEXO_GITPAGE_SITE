@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="防止偷懶Day15
+為了儲存之後的資料
+今天就來設定Firebase的套件">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Swift隨手紀錄Day15-Firebase"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Swift隨手紀錄Day15-Firebase - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2017/07/06/Swift隨手紀錄Day15-Firebase/">
+                Swift隨手紀錄Day15-Firebase
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-07-06</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>防止偷懶Day15</p>
+<p>為了儲存之後的資料</p>
+<p>今天就來設定Firebase的套件</p>
+<a id="more"></a>
+<p><a href="https://firebase.google.com/docs/ios/setup" target="_blank" rel="external"> 首先來到Firebase官網的文件 </a></p>
+<p>來跟著上面的步驟一步一步的來設定</p>
+<p>首先用google帳號登入來到console點擊新增專案</p>
+<img src="/donaldwu.github.com/2017/07/06/Swift隨手紀錄Day15-Firebase/Day15NEW.png" alt="Day15NEW.png" title="">
+<p>填入專案名稱跟地點</p>
+<p>建立完成就可以看到下面這個畫面</p>
+<img src="/donaldwu.github.com/2017/07/06/Swift隨手紀錄Day15-Firebase/Day15Add.png" alt="Day15Add.png" title="">
+<p>點選加入iOS</p>
+<img src="/donaldwu.github.com/2017/07/06/Swift隨手紀錄Day15-Firebase/Day15Add2.png" alt="Day15Add2.png" title="">
+<p>接下來打開Xcode找到Target下面的Bundle Identifier</p>
+
+<p>填入iOS繫結ID之後點註冊應用程式</p>
+<img src="/donaldwu.github.com/2017/07/06/Swift隨手紀錄Day15-Firebase/Day15Add3.png" alt="Day15Add3.png" title="">
+<p>接下來就把GoogleService-info.plist下載下來並放到Xcode裡面</p>
+<img src="/donaldwu.github.com/2017/07/06/Swift隨手紀錄Day15-Firebase/Day15AddGSInfo.gif" alt="Day15AddGSInfo.gif" title="">
+<p>接下來就邊看接下來該做的步驟邊按完成到結束吧</p>
+
+<p>CocoaPods的安裝這裡就先跳過（偷懶，跪謝谷歌大神）</p>
+<p>直接用CocoaPods安裝Firebase的套件</p>
+<p>先打開終端機移動到Project的目錄下輸入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod init</div></pre></td></tr></table></figure>
+<img src="/donaldwu.github.com/2017/07/06/Swift隨手紀錄Day15-Firebase/Day15Podinit.gif" alt="Day15Podinit.gif" title="">
+<p>然後修改產生出來的podfile內容</p>
+<p>這邊範例我用vim進行修改，用xcode或其他文字編輯器也可以</p>
+<p>直接在終端機Project的目錄下輸入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim podfile</div></pre></td></tr></table></figure>
+<p>打開檔案之後按下i進入INSERT MODE</p>
+<p>輸入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pod &apos;Firebase/Database&apos;</div><div class="line">pod &apos;Firebase/Auth&apos;</div><div class="line">pod &apos;Firebase/Storage&apos;</div></pre></td></tr></table></figure>
+<p>輸入完成按下esc離開INSERT MODE</p>
+<p>按下Shift + ;輸入wq就會儲存檔案並回到終端機的畫面</p>
+<img src="/donaldwu.github.com/2017/07/06/Swift隨手紀錄Day15-Firebase/Day15Vim.gif" alt="Day15Vim.gif" title="">
+<p>修改完podfile就可以來進行pod的安裝拉(如果這時xcode有開可以先關掉)</p>
+<p>一樣在終端機Project的目錄下輸入pod install</p>
+<p>等他跑完就會發現目錄下多了一個projectName.xcworkspace檔案</p>
+<p>點兩下這檔案打開xcode就會發現多了個pod的資料夾</p>
+<img src="/donaldwu.github.com/2017/07/06/Swift隨手紀錄Day15-Firebase/Day15Posinstall.gif" alt="Day15Posinstall.gif" title="">
+<p>裡面就包含了剛剛安裝的pod</p>
+<p>最後再回到AppDelegate.swift修改一下</p>
+<p>先import Firebase的套件</p>
+<p>然後在didFinishLaunchingWithOptions這個function內加上</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">    </div><div class="line">    <span class="type">FIRApp</span>.configure()</div><div class="line">    </div><div class="line">    window = <span class="type">UIWindow</span>(frame: <span class="type">UIScreen</span>.main.bounds)</div><div class="line">    window?.makeKeyAndVisible()</div><div class="line">    window?.rootViewController = <span class="type">UINavigationController</span>(rootViewController: <span class="type">HomeController</span>())</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接下來就可以準備使用有安裝的Firebase套件了．</p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:donaldwu1101@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'Donaldwu';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

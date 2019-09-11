@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="防止偷懶Day19
+繼續來製作新增成員頁面的新功能
+今天就來讓圖像可以點擊然後更換成手機內的圖片
+就用UIImagePicker來處理這功能">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Swift隨手紀錄Day19-新增成員頁面-UIImagePickerController-Part1"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Swift隨手紀錄Day19-新增成員頁面-UIImagePickerController-Part1 - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2017/07/10/Swift隨手紀錄Day19-新增成員頁面-UIImagePickerController/">
+                Swift隨手紀錄Day19-新增成員頁面-UIImagePickerController-Part1
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-07-10</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>防止偷懶Day19</p>
+<p>繼續來製作新增成員頁面的新功能</p>
+<p>今天就來讓圖像可以點擊然後更換成手機內的圖片</p>
+<p>就用UIImagePicker來處理這功能</p>
+<a id="more"></a>
+<p>進入到AddMemberController.swift</p>
+<p>找到負責生成ImageView的profileImage</p>
+<p>稍微做一點修改</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> profileImage: <span class="type">UIImageView</span> = &#123;</div><div class="line">    <span class="keyword">let</span> image = <span class="type">UIImageView</span>()</div><div class="line">    image.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">    image.image = #imageLiteral(resourceName: <span class="string">"pied piper"</span>)</div><div class="line">    image.contentMode = .scaleAspectFill</div><div class="line">    image.layer.cornerRadius = <span class="number">5</span></div><div class="line">    image.layer.masksToBounds = <span class="literal">true</span></div><div class="line">    image.addGestureRecognizer(<span class="type">UITapGestureRecognizer</span>(target: <span class="keyword">self</span>, action: #selector(handleChangeImage)))</div><div class="line">    image.isUserInteractionEnabled = <span class="literal">true</span></div><div class="line">    <span class="keyword">return</span> image</div><div class="line">&#125;()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">handleChangeImage</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"123"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先是新增了新的手勢偵測，第一步我們先看是不是能正確運作</p>
+<p>所以在偵測到手勢之後執行handleChangeImage這個function</p>
+<p>這個function則先印出123這個字串</p>
+<p>然後把isUserInteractionEnabled設定成true</p>
+<p>這邊需要將原本實作時使用的let改成lazy var，不然是不會有動作的</p>
+<p>先來看看成果</p>
+<img src="/donaldwu.github.com/2017/07/10/Swift隨手紀錄Day19-新增成員頁面-UIImagePickerController/Day19Gesture.gif" alt="Day19Gesture.gif" title="">
+<p>確定手勢可以作用之後就要開始定義function的內容拉</p>
+<p>但是在開始定義之前我們可以看到整個AddMemberController.swift其實已經寫了不少內容了</p>
+<p>為了之後再回來看程式碼的時候不會有太多想翻桌的衝動</p>
+<p>我們就把這個要新增的handleChangeImage寫到別的檔案裡面吧</p>
+<img src="/donaldwu.github.com/2017/07/10/Swift隨手紀錄Day19-新增成員頁面-UIImagePickerController/Day19Addmemberhandler.png" alt="Day19Addmemberhandler.png" title="">
+<p>如圖所示，我們在Controller裡面新增一個group叫做Extension</p>
+<p>裡面新增一個AddMemberHandler.swift的檔案</p>
+<p>接下來處理選照片動作的程式碼就都集中在這邊</p>
+<p>避免同一檔案裡面太多內容不好閱讀</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">AddMemberController</span>: <span class="title">UIImagePickerControllerDelegate</span>, <span class="title">UINavigationControllerDelegate</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">handleChangeImage</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> imagePicker = <span class="type">UIImagePickerController</span>()</div><div class="line">        imagePicker.delegate = <span class="keyword">self</span></div><div class="line">        present(imagePicker, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>OK，執行下去</p>
+<p>保證crash…</p>
+<p>看一下console吧</p>
+<p>應該會給出這樣子的內容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">This app has crashed because it attempted to access privacy-sensitive data without a usage description.  The app&apos;s Info.plist must contain an NSPhotoLibraryUsageDescription key with a string value explaining to the user how the app uses this data.</div></pre></td></tr></table></figure>
+<p>因為iOS 10以後對個人資料的存取有很多限制所以要去info.plist修改一下</p>
+<img src="/donaldwu.github.com/2017/07/10/Swift隨手紀錄Day19-新增成員頁面-UIImagePickerController/Day19Photoprivacy.gif" alt="Day19Photoprivacy.gif" title="">
+<p>新增一個欄位選擇Privacy - Photo Library Usage Description</p>
+<p>然後在後面選擇跳出要求權限視窗的文字</p>
+<p>一般來說到這裡就應該可以看到需要的UIImagePickerController了</p>
+<p>但是執行下去應該會像下面這樣</p>
+<img src="/donaldwu.github.com/2017/07/10/Swift隨手紀錄Day19-新增成員頁面-UIImagePickerController/Day19Orientationcrash.gif" alt="Day19Orientationcrash.gif" title="">
+<p>首先這個可以看到UIImagePickerController預設是在垂直畫面上表現的</p>
+<p>不是我們需要的橫躺畫面，接下來點擊OK之後就直接crash了</p>
+<p>一樣看向console</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;Supported orientations has no common orientation with the application, and [PUUIAlbumListViewController shouldAutorotate] is returning YES&apos;</div></pre></td></tr></table></figure>
+<p>看來是因為shouldAutorotate預設的回傳是ture，所以讓我們這只能橫躺的APP沒辦法處理拉</p>
+<p>比較簡單的處理就是把這個UIImagePickerController做點修改</p>
+<p>以跳出框來表現UIImagePickerController</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">handleChangeImage</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">let</span> imagePicker = <span class="type">UIImagePickerController</span>()</div><div class="line">    imagePicker.delegate = <span class="keyword">self</span></div><div class="line">    imagePicker.modalPresentationStyle = .popover</div><div class="line">    present(imagePicker, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<img src="/donaldwu.github.com/2017/07/10/Swift隨手紀錄Day19-新增成員頁面-UIImagePickerController/Day19UIImagepicker.gif" alt="Day19UIImagepicker.gif" title="">
+<p>這邊雖然在iPhone7 Plus模擬器上成功了</p>
+<p>但是換成其他模擬器跟實機來跑的時候依然會發生crash</p>
+<p>目前我還沒找到其他比較好的解法</p>
+<p>看官方文件似乎必須要是垂直的畫面才行</p>
+<p>因此目前先把不能旋轉的限制解除</p>
+<p>看之後有想到方法處理再決定是否需要鎖定畫面方向</p>
+<p>回到Deployment Info修改設定</p>
+<img src="/donaldwu.github.com/2017/07/10/Swift隨手紀錄Day19-新增成員頁面-UIImagePickerController/Day19RotationSetting.png" alt="Day19RotationSetting.png" title="">
+<p>但這樣子會有一點小問題發生在RecordController</p>
+<p>畫面從垂直旋轉到橫躺時必須要讓collectionView重新調整一次</p>
+<p>不然畫面會維持垂直時的大小</p>
+<p>所以回到RecordController.swift在viewDidLoad內加上一個觀察者來確認螢幕是不是旋轉過</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>, selector: #selector(didRotation), name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">UIDeviceOrientationDidChange</span>, object: <span class="literal">nil</span>)</div></pre></td></tr></table></figure>
+<p>當然也要定義旋轉後的動作，我們讓collectionView重新載入</p>
+<p>最後記得在離開時移除掉觀差者</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">didRotation</span><span class="params">()</span></span> &#123;</div><div class="line">    collectionView?.reloadData()</div><div class="line">&#125;</div><div class="line">	</div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewWillDisappear</span><span class="params">(<span class="number">_</span> animated: Bool)</span></span> &#123;</div><div class="line">    <span class="keyword">super</span>.viewWillDisappear(animated)</div><div class="line">    <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.removeObserver(<span class="keyword">self</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>下篇待續～</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/Swift/">#Swift</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:donaldwu1101@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'Donaldwu';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

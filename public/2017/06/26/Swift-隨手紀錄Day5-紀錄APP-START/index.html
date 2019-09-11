@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="防止偷懶Day5
+準備做一個棒球紀錄用的APP
+今天準備將主幹的紀錄頁面做出雛形
+接續昨天完成的collectionView繼續將需要的元件放上去">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Swift-隨手紀錄Day5 紀錄APP START"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Swift-隨手紀錄Day5 紀錄APP START - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2017/06/26/Swift-隨手紀錄Day5-紀錄APP-START/">
+                Swift-隨手紀錄Day5 紀錄APP START
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-06-26</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>防止偷懶Day5</p>
+<p>準備做一個棒球紀錄用的APP</p>
+<p>今天準備將主幹的紀錄頁面做出雛形</p>
+<p>接續昨天完成的collectionView繼續將需要的元件放上去</p>
+<a id="more"></a>
+<p>目標大概長這樣</p>
+<img src="/donaldwu.github.com/2017/06/26/Swift-隨手紀錄Day5-紀錄APP-START/RecordController.png" alt="RecordController.png" title="">
+<p>先用9個cell做出9棒各自的頭像(image),成績內容(label)，發送按鈕(button)</p>
+<p>預計用陣列做成績的儲存，應該之後會將label換成textView</p>
+<p>但今天先大致將畫面刻出來</p>
+<p>首先，來客製化我們的collectionViewCell</p>
+<p>新增一個RecordCell.swift檔案，順便將檔案分類一下</p>
+<p>目前的目錄長下面這樣</p>
+<img src="/donaldwu.github.com/2017/06/26/Swift-隨手紀錄Day5-紀錄APP-START/Index.png" alt="Index.png" title="">
+<p>在RecordCell.swift的裡面來增加我們需要的view</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RecordCell</span>: <span class="title">UICollectionViewCell</span> </span>&#123;</div><div class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</div><div class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</div><div class="line">        setupView()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> profileImage: <span class="type">UIImageView</span> = &#123;</div><div class="line">        <span class="keyword">let</span> image = <span class="type">UIImageView</span>()</div><div class="line">        image.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">        image.image = <span class="type">UIImage</span>(named: <span class="string">"image"</span>)</div><div class="line">        image.contentMode = .scaleAspectFill</div><div class="line">        image.layer.cornerRadius = <span class="number">5</span></div><div class="line">        image.layer.masksToBounds = <span class="literal">true</span></div><div class="line">        <span class="keyword">return</span> image</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> wordLabel: <span class="type">UILabel</span> = &#123;</div><div class="line">        <span class="keyword">let</span> label = <span class="type">UILabel</span>()</div><div class="line">        label.text = <span class="string">"Test Test Test"</span></div><div class="line">        label.backgroundColor = .yellow</div><div class="line">        label.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">        <span class="keyword">return</span> label</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> sentButton: <span class="type">UIButton</span> = &#123;</div><div class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</div><div class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">        button.backgroundColor = .purple</div><div class="line">        button.layer.cornerRadius = <span class="number">5</span></div><div class="line">        button.layer.borderColor = <span class="type">UIColor</span>.blue.cgColor</div><div class="line">        button.layer.borderWidth = <span class="number">2</span></div><div class="line">        button.setTitle(<span class="string">"Sent"</span>, <span class="keyword">for</span>: .normal)</div><div class="line">        button.titleLabel?.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">14</span>)</div><div class="line">        <span class="keyword">return</span> button</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setupView</span><span class="params">()</span></span> &#123;</div><div class="line">        backgroundColor = .yellow</div><div class="line">        addSubview(profileImage)</div><div class="line">        addSubview(wordLabel)</div><div class="line">        addSubview(sentButton)</div><div class="line">        </div><div class="line">        profileImage.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.centerYAnchor).isActive = <span class="literal">true</span></div><div class="line">        profileImage.leftAnchor.constraint(equalTo: <span class="keyword">self</span>.leftAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">        profileImage.heightAnchor.constraint(equalToConstant: <span class="number">48</span>).isActive = <span class="literal">true</span></div><div class="line">        profileImage.widthAnchor.constraint(equalToConstant: <span class="number">48</span>).isActive = <span class="literal">true</span></div><div class="line">        </div><div class="line">        wordLabel.topAnchor.constraint(equalTo: <span class="keyword">self</span>.topAnchor).isActive = <span class="literal">true</span></div><div class="line">        wordLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">        wordLabel.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.bottomAnchor).isActive = <span class="literal">true</span></div><div class="line">        wordLabel.rightAnchor.constraint(equalTo: <span class="keyword">self</span>.rightAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">        </div><div class="line">        sentButton.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.centerYAnchor).isActive = <span class="literal">true</span></div><div class="line">        sentButton.rightAnchor.constraint(equalTo: <span class="keyword">self</span>.rightAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">        sentButton.widthAnchor.constraint(equalToConstant: <span class="number">60</span>).isActive = <span class="literal">true</span></div><div class="line">        sentButton.heightAnchor.constraint(equalToConstant: <span class="number">32</span>).isActive = <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line"></div><div class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</div><div class="line">        <span class="built_in">fatalError</span>(<span class="string">"init(coder:) has not been implemented"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>先分別實現ImageView、Label、Button並且設定好在cell內的layout</p>
+<p>目前只是先大致定位，之後再根據需求新增跟調整</p>
+<p>再來新增RecordController的內容</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RecordController</span>: <span class="title">UICollectionViewController</span>, <span class="title">UICollectionViewDelegateFlowLayout</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> cellId = <span class="string">"CellId"</span></div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        </div><div class="line">        collectionView?.backgroundColor = .green</div><div class="line">        collectionView?.register(<span class="type">RecordCell</span>.<span class="keyword">self</span>, forCellWithReuseIdentifier: cellId)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, numberOfItemsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">9</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UICollectionViewCell</span> &#123;</div><div class="line">        <span class="keyword">let</span> cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, <span class="keyword">for</span>: indexPath)</div><div class="line">        cell.backgroundColor = .blue</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> cell</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath)</span></span> -&gt; <span class="type">CGSize</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="type">CGSize</span>(width: view.frame.width, height: <span class="number">80</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先是讓RecordController繼承UICollectionViewDelegateFlowLayout</p>
+<p>再來是定義cellId方便註冊並在viewDidLoad裡面註冊RecordCell</p>
+<p>然後設定numberOfItemsInSection回傳需要的cell數量，棒球有9個棒次，暫時先設9</p>
+<p>之後有其他需要應該會用header跟footer去處理</p>
+<p>在把之前註冊的RecordCell拿來用在cellForItemAt的function中</p>
+<p>最後是cell的大小設定由layout collectionViewLayout處理</p>
+<p>會回傳一個CGSize，我在這裡寬度設定與畫面等寬，高度80</p>
+<p>這樣子執行看看就會看到目標的畫面</p>
+<p>之後會花一些時間整理需要的功能以及畫面的定案，希望可以速度想好</p>
+<p>不然我要沒梗寫拉（￣ c￣）y▂ξ</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/Swift/">#Swift</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:donaldwu1101@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'Donaldwu';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

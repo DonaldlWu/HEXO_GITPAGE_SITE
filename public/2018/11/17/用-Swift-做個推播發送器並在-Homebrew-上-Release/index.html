@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="上個月的 iPlayground 真的收穫良多
+今天就來記錄一下如何將寫好的 swift 程式變成可執行檔並上傳至 homebrew 供人下載 
+隔了一個月!!?? 謎之音：沒關係拉，Blog 都能從一月拖到十一月一篇都生不出來了
+GitHub 位置">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="用 Swift 做個推播發送器並在 Homebrew 上 Release"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>用 Swift 做個推播發送器並在 Homebrew 上 Release - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">
+                用 Swift 做個推播發送器並在 Homebrew 上 Release
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-11-17</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>上個月的 <a href="https://medium.com/iplayground/iplayground-2018-slides-11587ebdddc5" target="_blank" rel="external">iPlayground</a> 真的收穫良多</p>
+<p>今天就來記錄一下如何將寫好的 swift 程式變成可執行檔並上傳至 homebrew 供人下載 </p>
+<p><del>隔了一個月!!?? 謎之音：沒關係拉，Blog 都能從一月拖到十一月一篇都生不出來了</del></p>
+<p><a href="https://github.com/DonaldlWu/DRWApns" target="_blank" rel="external">GitHub 位置</a></p>
+<a id="more"></a>
+<p>程式本身並不困難，僅僅是接收使用者在 Terminal 輸入的參數取得發送推播需要的資訊</p>
+<p>並拉入現成的 Package <a href="https://github.com/PerfectlySoft/Perfect-Notifications.git" target="_blank" rel="external">Perfect-Notifications</a></p>
+<p>幫忙處理發送推播的實作，下次再來詳細討論關於發推播這件事</p>
+<p>今天主要來記錄一下將東西放到 homebrew 上這件事</p>
+<p>在完成程式的開發後主要的 Release 流程有以下幾點</p>
+<ol>
+<li><p>撰寫 Makefile</p>
+</li>
+<li><p>將程式 push 至 Github 並 Release</p>
+</li>
+<li><p>用 brew create 製作 formula file</p>
+</li>
+<li><p>將 formula push 到一個管理用的 Github Repo</p>
+</li>
+<li><p>在 terminal 驗證是否能成功下載安裝與執行</p>
+</li>
+</ol>
+<h3 id="撰寫-Makefile"><a href="#撰寫-Makefile" class="headerlink" title="撰寫 Makefile"></a>撰寫 Makefile</h3><p>首先在專案下新建個 Makefile 檔案</p>
+<p>內容如下</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">PREFIX?=/usr/<span class="keyword">local</span></div><div class="line">PROD_NAME=DRWApns</div><div class="line">PROD_NAME_HOMEBREW=DRWApns</div><div class="line"></div><div class="line">build:</div><div class="line">  swift build <span class="comment">--disable-sandbox -c release -Xswiftc -static-stdlib</span></div><div class="line">build-<span class="keyword">for</span>-linux:</div><div class="line">  swift build <span class="comment">--disable-sandbox -c release</span></div><div class="line">install: build</div><div class="line">  mkdir -p <span class="string">"$(PREFIX)/bin"</span></div><div class="line">  cp -f <span class="string">".build/release/DRWApns"</span> <span class="string">"$(PREFIX)/bin/DRWAPns"</span></div><div class="line"><span class="built_in">run</span>:</div><div class="line">.build/release/$(PROD_NAME)</div></pre></td></tr></table></figure>
+<p>接下來就是 Push 到 Github</p>
+<h3 id="Push-Repo-amp-Release"><a href="#Push-Repo-amp-Release" class="headerlink" title="Push Repo &amp; Release"></a>Push Repo &amp; Release</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin master</div></pre></td></tr></table></figure>
+<p>在 Repo 的首頁找到 Releases 的按鈕</p>
+<p>進去之後點擊右上新增一個 new release </p>
+<p><img src="https://user-images.githubusercontent.com/28559915/48698417-fe572500-ec21-11e8-9ed0-3ab1edbd44a8.gif" alt="newdraft"></p>
+<p>接下來將游標移到 Source code(tar.gz) 右鍵複製一下鏈結</p>
+<p><img src="https://user-images.githubusercontent.com/28559915/48698728-ca303400-ec22-11e8-8055-bda6047cbc6a.gif" alt="copylink"></p>
+<h3 id="用-brew-create-製作-formula-file"><a href="#用-brew-create-製作-formula-file" class="headerlink" title="用 brew create 製作 formula file"></a>用 brew create 製作 formula file</h3><p>接下來打開 terminal 輸入</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew create 剛剛複製的鏈結</div></pre></td></tr></table></figure>
+<p>homebrew 就會幫你做好一個 formula.rb 檔案</p>
+<p>附上最後我們調整過後需要的部分</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># Documentation: https://docs.brew.sh/Formula-Cookbook</div><div class="line">#                https://www.rubydoc.info/github/Homebrew/brew/master/Formula</div><div class="line"># PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!</div><div class="line">class Drwapns &lt; Formula</div><div class="line">    desc "A tool for sending push notification to iOS devices"</div><div class="line">    homepage ""</div><div class="line">    url "https://github.com/DonaldlWu/DRWApns/archive/1.0.5.tar.gz"</div><div class="line">    sha256 "ad5b27f1b5ca929311ec5873b4ecc61d2ca7aaa496531b1b9024f9a714c2020a"</div><div class="line">  def install</div><div class="line">    system "make", "install", "PREFIX=#&#123;prefix&#125;" # if this fails, try separate make/make install steps</div><div class="line">  end</div><div class="line"></div><div class="line">  depends_on :xcode =&gt; ["9.2", :build]</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>接下來在 Github 上創一個負責集中管理 .rb 檔案的 Repo</p>
+<p>並將改好的 .rb 檔 push 上去</p>
+<h3 id="驗證下載"><a href="#驗證下載" class="headerlink" title="驗證下載"></a>驗證下載</h3><p>一樣來到 Terminal 輸入</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install &#123;.rb 檔 repo 的名稱&#125;/&#123;.rb 檔名&#125;</div></pre></td></tr></table></figure>
+<p>以我的 Repo 當範例就是</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install DonaldlWu/homebrew-taps/drwapns</div></pre></td></tr></table></figure>
+<p><img width="1038" alt="2018-11-18 9 20 16" src="https://user-images.githubusercontent.com/28559915/48673004-06f32100-eb78-11e8-8e15-c14f072ed3dc.png"></p>
+<p>最後移動到 <code>/usr/local/Cellar/{rb檔名}/{release version}/bin</code></p>
+<p>並執行編譯好的的執行檔 </p>
+<p>Done!!!</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/Swift/">#Swift</a> <a href="/donaldwu.github.com/tags/SPM/">#SPM</a> <a href="/donaldwu.github.com/tags/Push-Notification/">#Push Notification</a> <a href="/donaldwu.github.com/tags/Homebrew/">#Homebrew</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:donaldwu1101@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'Donaldwu';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>
