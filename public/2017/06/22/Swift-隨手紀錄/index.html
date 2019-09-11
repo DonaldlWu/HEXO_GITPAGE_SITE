@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +16,7 @@
 也減少了不少我開發的時間
 但當project越來越大，Controller越來越多
 課金多少的差異在每次要開啟龐大的Storyboard的時候就非常有感覺了！！？？
-謎之聲：這裡有新的mac好便宜啊～買吧～買吧
-所以為了我的錢包著想(X)裝逼(O)
+謎之聲：這裡有新的mac好便宜啊～買吧～買吧所以為了我的錢包著想(X)裝逼(O)
 就來學學怎麼用程式碼來刻自己要的畫面吧">
     
 
@@ -28,24 +27,24 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Swift 隨手紀錄"/>
+        <meta property="og:title" content="Swift 隨手紀錄">
     
 
     <!--Open Graph Description-->
     
 
     <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
     
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary">
     
 
     <!-- Title -->
@@ -66,7 +65,7 @@
     <![endif]-->
 
     <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
@@ -145,8 +144,6 @@
                 <span class="date">2017-06-22</span>
             
             
-                <a href="#disqus_thread" class="comments">Comments</a>
-            
             
         </div>
     </div>
@@ -163,32 +160,41 @@
 <p>也減少了不少我開發的時間</p>
 <p>但當project越來越大，Controller越來越多</p>
 <p>課金多少的差異在每次要開啟龐大的Storyboard的時候就非常有感覺了！！？？</p>
-<pre><code>謎之聲：這裡有新的mac好便宜啊～買吧～買吧
-</code></pre><p>所以為了我的錢包著想(X)裝逼(O)</p>
+<pre><code>謎之聲：這裡有新的mac好便宜啊～買吧～買吧</code></pre><p>所以為了我的錢包著想(X)裝逼(O)</p>
 <p>就來學學怎麼用程式碼來刻自己要的畫面吧</p>
 <a id="more"></a>
+
 <p>首先，必須將 TARGETS -&gt; General -&gt; Deployment Info內 Main interface給清空(預設是main)</p>
-<img src="/donaldwu.github.com/2017/06/22/Swift-隨手紀錄/TARGETS.png" alt="TARGETS.png" title="">
+<img src="/donaldwu.github.com/2017/06/22/Swift-隨手紀錄/TARGETS.png">
+
+
+
+
+
 <p>接下來就移動到AppDelegate.swift當中來指定我們要從哪裡開始吧</p>
 <p>在AppDelegate.swift檔案中我們可以找到<code>didFinishLaunchingWithOptions</code>這個Function，在裡面我們可以照這樣去設定</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">    </div><div class="line">    window = <span class="type">UIWindow</span>(frame: <span class="type">UIScreen</span>.main.bounds)</div><div class="line">    window?.makeKeyAndVisible()</div><div class="line">    window?.rootViewController = <span class="type">ViewController</span>()</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    </span><br><span class="line">    window = <span class="type">UIWindow</span>(frame: <span class="type">UIScreen</span>.main.bounds)</span><br><span class="line">    window?.makeKeyAndVisible()</span><br><span class="line">    window?.rootViewController = <span class="type">ViewController</span>()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>我們手動去增加新的UIWindow Object來幫我們處理ＵＩ的行為(內略n行說明請自行Option左鍵UIWindow)，但光只有UIWindow並不夠</p>
 <p>我們需要去指定這個window的<code>rootViewController</code></p>
 <p>在這裡我們將專案開啟時就會幫我們建好的<code>ViewController</code>指定為<code>rootViewController</code></p>
 <p>這樣就完成拉</p>
 <p>command + R 給他催落去</p>
 <p>恩？ 全黑一片？ </p>
-<img src="/donaldwu.github.com/2017/06/22/Swift-隨手紀錄/hanjomain.jpeg" alt="hanjomain.jpeg" title="">
+<img src="/donaldwu.github.com/2017/06/22/Swift-隨手紀錄/hanjomain.jpeg">
+
 <p>別急，這很正常</p>
 <p>因為<code>viewController</code>還啥都沒有啊</p>
 <p>來～給他變個色確認一下</p>
 <p>回到<code>viewController</code>在viewdidLoad裡面加上</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">super</span>.viewDidLoad()</div><div class="line">    view.backgroundColor = .purple</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">    view.backgroundColor = .purple</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>再次啟動就會發現畫面如我所想的變成全部一片紫色摟</p>
 <p>最後</p>
 <p>如果需要用到navigation bar在你的controller中</p>
 <p>只需要將指定的rootViewcontroller那行稍微修改一下</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window?.rootViewController = <span class="type">UINavigationController</span>(rootViewController: <span class="type">ViewController</span>())</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window?.rootViewController = <span class="type">UINavigationController</span>(rootViewController: <span class="type">ViewController</span>())</span><br></pre></td></tr></table></figure>
+
 <p>當然，<code>ViewController</code>也能換成其他自己新增的Controller</p>
 <p>下次再來談談怎麼用程式碼加上其他元件吧</p>
 
@@ -205,22 +211,13 @@
 
     <!-- Comments -->
     
-    <div class="comments">
-        
-<div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-
-
-    </div>
-    
 
 </div>
         </section>
 
     </div>
 </div>
+
 
 </div>
 
@@ -242,6 +239,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
             </li>
             
@@ -251,10 +252,6 @@
             
             <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
             </li>
             
         </ul>
@@ -341,7 +338,7 @@
                     
                     
                     <li class="list-inline-item">
-                        <a href="mailto:donaldwu1101@gmail.com">
+                        <a href="mailto:test@example.com">
                             <span class="footer-icon-container">
                                 <i class="fa fa-envelope-o"></i>
                             </span>
@@ -385,18 +382,6 @@
 <script src="/donaldwu.github.com/js/main.js"></script>
 
 <!-- Disqus Comments -->
-
-<script type="text/javascript">
-    var disqus_shortname = 'Donaldwu';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
 

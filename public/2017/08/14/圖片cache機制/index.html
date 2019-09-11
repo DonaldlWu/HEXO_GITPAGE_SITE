@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,24 +22,24 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="圖片cache機制"/>
+        <meta property="og:title" content="圖片cache機制">
     
 
     <!--Open Graph Description-->
     
 
     <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
     
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary">
     
 
     <!-- Title -->
@@ -60,7 +60,7 @@
     <![endif]-->
 
     <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
@@ -139,8 +139,6 @@
                 <span class="date">2017-08-14</span>
             
             
-                <a href="#disqus_thread" class="comments">Comments</a>
-            
             
         </div>
     </div>
@@ -155,8 +153,10 @@
 <p>不然每次滑動畫面圖片就不斷閃動</p>
 <p>看起來超不舒服而且一直從Firebase下載圖片超浪費效能</p>
 <a id="more"></a>
+
 <p>先看code</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="keyword">let</span> imageCache = <span class="type">NSCache</span>&lt;<span class="type">AnyObject</span>, <span class="type">AnyObject</span>&gt;()</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIImageView</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">loadImageUsingCashWithUrlString</span><span class="params">(urlString: String)</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="comment">// Check cache for image</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">let</span> cachedImage = imageCache.object(forKey: urlString <span class="keyword">as</span> <span class="type">AnyObject</span>) <span class="keyword">as</span>? <span class="type">UIImage</span> &#123;</div><div class="line">            <span class="keyword">self</span>.image = cachedImage</div><div class="line">            <span class="keyword">return</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> url = <span class="type">URL</span>(string: urlString)</div><div class="line">        </div><div class="line">        <span class="type">URLSession</span>.shared.dataTask(with: url!) &#123; (data, response, error) <span class="keyword">in</span></div><div class="line">            <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">                <span class="built_in">print</span>(error!)</div><div class="line">                <span class="keyword">return</span></div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="type">DispatchQueue</span>.main.async &#123;</div><div class="line">                </div><div class="line">                <span class="keyword">if</span> <span class="keyword">let</span> downloadedImage = <span class="type">UIImage</span>(data: data!) &#123;</div><div class="line">                    imageCache.setObject(downloadedImage, forKey: urlString <span class="keyword">as</span> <span class="type">AnyObject</span>)</div><div class="line">                    <span class="keyword">self</span>.image = <span class="type">UIImage</span>(data: data!)</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;.resume()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> imageCache = <span class="type">NSCache</span>&lt;<span class="type">AnyObject</span>, <span class="type">AnyObject</span>&gt;()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIImageView</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">loadImageUsingCashWithUrlString</span><span class="params">(urlString: String)</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Check cache for image</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> cachedImage = imageCache.object(forKey: urlString <span class="keyword">as</span> <span class="type">AnyObject</span>) <span class="keyword">as</span>? <span class="type">UIImage</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.image = cachedImage</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> url = <span class="type">URL</span>(string: urlString)</span><br><span class="line">        </span><br><span class="line">        <span class="type">URLSession</span>.shared.dataTask(with: url!) &#123; (data, response, error) <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="built_in">print</span>(error!)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">let</span> downloadedImage = <span class="type">UIImage</span>(data: data!) &#123;</span><br><span class="line">                    imageCache.setObject(downloadedImage, forKey: urlString <span class="keyword">as</span> <span class="type">AnyObject</span>)</span><br><span class="line">                    <span class="keyword">self</span>.image = <span class="type">UIImage</span>(data: data!)</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;.resume()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>呼叫這function時會先去看cache裡面有沒有存過</p>
 <p>不然就用拿到的urlString去下載</p>
 <p>下載完就用urlString當作cache object的key把圖片存起來</p>
@@ -174,22 +174,13 @@
 
     <!-- Comments -->
     
-    <div class="comments">
-        
-<div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-
-
-    </div>
-    
 
 </div>
         </section>
 
     </div>
 </div>
+
 
 </div>
 
@@ -211,6 +202,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
             </li>
             
@@ -220,10 +215,6 @@
             
             <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
             </li>
             
         </ul>
@@ -310,7 +301,7 @@
                     
                     
                     <li class="list-inline-item">
-                        <a href="mailto:donaldwu1101@gmail.com">
+                        <a href="mailto:test@example.com">
                             <span class="footer-icon-container">
                                 <i class="fa fa-envelope-o"></i>
                             </span>
@@ -354,18 +345,6 @@
 <script src="/donaldwu.github.com/js/main.js"></script>
 
 <!-- Disqus Comments -->
-
-<script type="text/javascript">
-    var disqus_shortname = 'Donaldwu';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
 

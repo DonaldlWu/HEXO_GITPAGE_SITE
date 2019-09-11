@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,24 +23,24 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="關於多 ssh key 的那些坑"/>
+        <meta property="og:title" content="關於多 ssh key 的那些坑">
     
 
     <!--Open Graph Description-->
     
 
     <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
     
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary">
     
 
     <!-- Title -->
@@ -61,7 +61,7 @@
     <![endif]-->
 
     <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
@@ -118,15 +118,13 @@
     <div class="col-sm-12">
 
         <!--Title and Logo-->
-        <header>
-    <div class="logo">
-        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa fa-tags" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">關於多 ssh key 的那些坑</h1>
+            <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
     </div>
 </header>
-        
             <section class="main">
                 
 <div class="post">
@@ -141,8 +139,6 @@
             
                 <span class="date">2017-06-06</span>
             
-            
-                <a href="#disqus_thread" class="comments">Comments</a>
             
             
         </div>
@@ -164,8 +160,7 @@
 
     覆蓋掉了
 
-        覆蓋掉了...
-</code></pre><p>最後只好乖乖把這當初做完就當沒這回事的東西再掏出來研究一下了</p>
+        覆蓋掉了...</code></pre><p>最後只好乖乖把這當初做完就當沒這回事的東西再掏出來研究一下了</p>
 <p>所幸這世界上陪我踩過這坑的人不少，有你們真好ＱＱ</p>
 <p>所以就來記錄一下我解決這東西的過程</p>
 <p>希望我能寫得夠清楚，當初邊找資料邊碎碎念，這不能寫得詳細一點嗎，那裡填這格到底是要衝尛？</p>
@@ -175,7 +170,8 @@
 <p>首先先介紹一下基本款，本人是在mac底下進行開發</p>
 <p>假設一開始沒有使用過任何ssh key，就可以直接創一個新的，然後照著後面的步驟慢慢的來</p>
 <p>不確定的話跟我一樣打開terminal輸入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh</span><br></pre></td></tr></table></figure>
+
 <p>輸入<code>ls</code>看看裡面有沒有需要你清除的業障吧ＸＤ</p>
 <p>都空了？ 啥都沒有？ 恭喜你，讓我們開始一起雷吧？</p>
 <p>首先講一下我們的目標，假設我目前有github的帳號跟bitbucket的帳號各一個</p>
@@ -197,22 +193,13 @@
 
     <!-- Comments -->
     
-    <div class="comments">
-        
-<div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-
-
-    </div>
-    
 
 </div>
             </section>
         
     </div>
 </div>
+
 
 </div>
 
@@ -234,6 +221,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
             </li>
             
@@ -243,10 +234,6 @@
             
             <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
             </li>
             
         </ul>
@@ -333,7 +320,7 @@
                     
                     
                     <li class="list-inline-item">
-                        <a href="mailto:donaldwu1101@gmail.com">
+                        <a href="mailto:test@example.com">
                             <span class="footer-icon-container">
                                 <i class="fa fa-envelope-o"></i>
                             </span>
@@ -377,18 +364,6 @@
 <script src="/donaldwu.github.com/js/main.js"></script>
 
 <!-- Disqus Comments -->
-
-<script type="text/javascript">
-    var disqus_shortname = 'Donaldwu';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
 

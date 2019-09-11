@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,24 +24,24 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Swift隨手紀錄Day17-新增成員頁面-UIView + UITableView"/>
+        <meta property="og:title" content="Swift隨手紀錄Day17-新增成員頁面-UIView + UITableView">
     
 
     <!--Open Graph Description-->
     
 
     <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
     
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary">
     
 
     <!-- Title -->
@@ -62,7 +62,7 @@
     <![endif]-->
 
     <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
@@ -141,8 +141,6 @@
                 <span class="date">2017-07-08</span>
             
             
-                <a href="#disqus_thread" class="comments">Comments</a>
-            
             
         </div>
     </div>
@@ -159,13 +157,16 @@
 <p>使用者應該是經由這個按鈕來確認進入紀錄畫面</p>
 <p>而非使用navigationItem的rightItem</p>
 <a id="more"></a>
+
 <p>為此，我認為用一個UIViewController當主體</p>
 <p>在上面再另外新增一個TableView是比較好的做法</p>
 <p>首先一樣先看看完工的模樣</p>
-<img src="/donaldwu.github.com/2017/07/08/Swift隨手紀錄Day17-新增成員頁面-UIView-UITableView/Day17SetNewTeam.gif" alt="Day17SetNewTeam.gif" title="">
+<img src="/donaldwu.github.com/2017/07/08/Swift隨手紀錄Day17-新增成員頁面-UIView-UITableView/Day17SetNewTeam.gif">
+
 <p>最底層是一個UIView，上面放一個tableView跟一個button作為subView</p>
 <p>就來看看在程式碼內如何做出這樣的效果吧</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SetNewTeamController</span>: <span class="title">UIViewController</span>, <span class="title">UITableViewDelegate</span>, <span class="title">UITableViewDataSource</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> cellId = <span class="string">"cellId"</span></div><div class="line">    <span class="keyword">var</span> teamTitle: <span class="type">String</span>?</div><div class="line">    <span class="keyword">private</span> <span class="keyword">var</span> tableView: <span class="type">UITableView</span>!</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="keyword">var</span> prefersStatusBarHidden: <span class="type">Bool</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> startButton: <span class="type">UIButton</span> = &#123;</div><div class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</div><div class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">        button.backgroundColor = .purple</div><div class="line">        button.layer.cornerRadius = <span class="number">5</span></div><div class="line">        button.layer.borderColor = <span class="type">UIColor</span>.blue.cgColor</div><div class="line">        button.layer.borderWidth = <span class="number">2</span></div><div class="line">        button.setTitle(<span class="string">"START"</span>, <span class="keyword">for</span>: .normal)</div><div class="line">        button.titleLabel?.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">13</span>)</div><div class="line">        button.addTarget(<span class="keyword">self</span>, action: #selector(toRecordController), <span class="keyword">for</span>: .touchUpInside)</div><div class="line">        <span class="keyword">return</span> button</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        view.backgroundColor = .white</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> backButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">"BACK"</span>, style: .done, target: <span class="keyword">self</span>, action: #selector(backHome))</div><div class="line">        <span class="keyword">let</span> addButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">"ADD MEMBER"</span>, style: .plain, target: <span class="keyword">self</span>, action: #selector(toAddMemberController))</div><div class="line">        navigationItem.title = teamTitle</div><div class="line">        navigationItem.leftBarButtonItem = backButton</div><div class="line">        navigationItem.rightBarButtonItem = addButton</div><div class="line">        </div><div class="line">        tableView = <span class="type">UITableView</span>()</div><div class="line">        tableView.register(<span class="type">UITableViewCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: cellId)</div><div class="line">        tableView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">        tableView.dataSource = <span class="keyword">self</span></div><div class="line">        tableView.delegate = <span class="keyword">self</span></div><div class="line">        </div><div class="line">        view.addSubview(tableView)</div><div class="line">        view.addSubview(startButton)</div><div class="line">        </div><div class="line">        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = <span class="literal">true</span></div><div class="line">        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = <span class="literal">true</span></div><div class="line">        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = <span class="literal">true</span></div><div class="line">        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -<span class="number">72</span>).isActive = <span class="literal">true</span></div><div class="line">        </div><div class="line">        startButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">        startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></div><div class="line">        startButton.widthAnchor.constraint(equalToConstant: <span class="number">72</span>).isActive = <span class="literal">true</span></div><div class="line">        startButton.heightAnchor.constraint(equalToConstant: <span class="number">48</span>).isActive = <span class="literal">true</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">backHome</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">self</span>.dismiss(animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">toAddMemberController</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> controller = <span class="type">AddMemberController</span>()</div><div class="line">        present(<span class="type">UINavigationController</span>(rootViewController: controller), animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">toRecordController</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> controller = <span class="type">RecordController</span>(collectionViewLayout: <span class="type">UICollectionViewFlowLayout</span>())</div><div class="line">        present(<span class="type">UINavigationController</span>(rootViewController: controller), animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">numberOfSections</span><span class="params">(<span class="keyword">in</span> tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">1</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">5</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line">        <span class="keyword">let</span> cell = <span class="type">UITableViewCell</span>(style: <span class="type">UITableViewCellStyle</span>.value1, reuseIdentifier: cellId)</div><div class="line">        cell.textLabel?.text = <span class="string">"MEMBER HERE"</span></div><div class="line">        <span class="keyword">return</span> cell</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SetNewTeamController</span>: <span class="title">UIViewController</span>, <span class="title">UITableViewDelegate</span>, <span class="title">UITableViewDataSource</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> cellId = <span class="string">"cellId"</span></span><br><span class="line">    <span class="keyword">var</span> teamTitle: <span class="type">String</span>?</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> tableView: <span class="type">UITableView</span>!</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> prefersStatusBarHidden: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> startButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</span><br><span class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        button.backgroundColor = .purple</span><br><span class="line">        button.layer.cornerRadius = <span class="number">5</span></span><br><span class="line">        button.layer.borderColor = <span class="type">UIColor</span>.blue.cgColor</span><br><span class="line">        button.layer.borderWidth = <span class="number">2</span></span><br><span class="line">        button.setTitle(<span class="string">"START"</span>, <span class="keyword">for</span>: .normal)</span><br><span class="line">        button.titleLabel?.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">13</span>)</span><br><span class="line">        button.addTarget(<span class="keyword">self</span>, action: #selector(toRecordController), <span class="keyword">for</span>: .touchUpInside)</span><br><span class="line">        <span class="keyword">return</span> button</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        view.backgroundColor = .white</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> backButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">"BACK"</span>, style: .done, target: <span class="keyword">self</span>, action: #selector(backHome))</span><br><span class="line">        <span class="keyword">let</span> addButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">"ADD MEMBER"</span>, style: .plain, target: <span class="keyword">self</span>, action: #selector(toAddMemberController))</span><br><span class="line">        navigationItem.title = teamTitle</span><br><span class="line">        navigationItem.leftBarButtonItem = backButton</span><br><span class="line">        navigationItem.rightBarButtonItem = addButton</span><br><span class="line">        </span><br><span class="line">        tableView = <span class="type">UITableView</span>()</span><br><span class="line">        tableView.register(<span class="type">UITableViewCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: cellId)</span><br><span class="line">        tableView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        tableView.dataSource = <span class="keyword">self</span></span><br><span class="line">        tableView.delegate = <span class="keyword">self</span></span><br><span class="line">        </span><br><span class="line">        view.addSubview(tableView)</span><br><span class="line">        view.addSubview(startButton)</span><br><span class="line">        </span><br><span class="line">        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -<span class="number">72</span>).isActive = <span class="literal">true</span></span><br><span class="line">        </span><br><span class="line">        startButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">        startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        startButton.widthAnchor.constraint(equalToConstant: <span class="number">72</span>).isActive = <span class="literal">true</span></span><br><span class="line">        startButton.heightAnchor.constraint(equalToConstant: <span class="number">48</span>).isActive = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">backHome</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.dismiss(animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">toAddMemberController</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> controller = <span class="type">AddMemberController</span>()</span><br><span class="line">        present(<span class="type">UINavigationController</span>(rootViewController: controller), animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">toRecordController</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> controller = <span class="type">RecordController</span>(collectionViewLayout: <span class="type">UICollectionViewFlowLayout</span>())</span><br><span class="line">        present(<span class="type">UINavigationController</span>(rootViewController: controller), animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">numberOfSections</span><span class="params">(<span class="keyword">in</span> tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">5</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> cell = <span class="type">UITableViewCell</span>(style: <span class="type">UITableViewCellStyle</span>.value1, reuseIdentifier: cellId)</span><br><span class="line">        cell.textLabel?.text = <span class="string">"MEMBER HERE"</span></span><br><span class="line">        <span class="keyword">return</span> cell</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>首先就是把原本是UITableViewController子類別的SetNewTeamController修改一下</p>
 <p>如同前面所提到的，我們需要一個UIViewController跟一個UITableView</p>
 <p>因此繼承UIViewController, UITableViewDelegate, UITableViewDataSource這三個類別</p>
@@ -193,22 +194,13 @@
 
     <!-- Comments -->
     
-    <div class="comments">
-        
-<div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-
-
-    </div>
-    
 
 </div>
         </section>
 
     </div>
 </div>
+
 
 </div>
 
@@ -230,6 +222,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
             </li>
             
@@ -239,10 +235,6 @@
             
             <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
             </li>
             
         </ul>
@@ -329,7 +321,7 @@
                     
                     
                     <li class="list-inline-item">
-                        <a href="mailto:donaldwu1101@gmail.com">
+                        <a href="mailto:test@example.com">
                             <span class="footer-icon-container">
                                 <i class="fa fa-envelope-o"></i>
                             </span>
@@ -373,18 +365,6 @@
 <script src="/donaldwu.github.com/js/main.js"></script>
 
 <!-- Disqus Comments -->
-
-<script type="text/javascript">
-    var disqus_shortname = 'Donaldwu';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
 

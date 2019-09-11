@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,24 +22,24 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Swift隨手紀錄Day10-PickerView Part2"/>
+        <meta property="og:title" content="Swift隨手紀錄Day10-PickerView Part2">
     
 
     <!--Open Graph Description-->
     
 
     <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
     
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary">
     
 
     <!-- Title -->
@@ -60,7 +60,7 @@
     <![endif]-->
 
     <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
@@ -139,8 +139,6 @@
                 <span class="date">2017-07-01</span>
             
             
-                <a href="#disqus_thread" class="comments">Comments</a>
-            
             
         </div>
     </div>
@@ -155,19 +153,23 @@
 <p>今天來把昨天做的UIPickerView繼續完成</p>
 <p>首先先來確認目標</p>
 <a id="more"></a>
+
 <p>在紀錄時需要的資料希望可以像撥洋蔥一樣一層一層的作選擇</p>
 <p>第一層先選擇是安打(H)、保送(BB)、失誤(E)、三振(K)、犧牲飛球(SF)</p>
 <p>第二層再更進一步選擇是一安、二安、三安還是全壘打等等</p>
 <p>然後能夠從UIPickerView把資料回存在回到collectionView時顯示</p>
 <p>來看看現在的UIPickerView長這樣</p>
-<img src="/donaldwu.github.com/2017/07/01/Swift隨手紀錄Day10-PickerView-Part2/PickerView.png" alt="PickerView.png" title="">
+<img src="/donaldwu.github.com/2017/07/01/Swift隨手紀錄Day10-PickerView-Part2/PickerView.png">
+
 <p>可以看到需要兩行的選項</p>
 <p>昨天定義了第一行的資訊，現在就來繼續定義第二行</p>
 <p>回到RecordPickerController.swift</p>
 <p>新增一個陣列</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> recordDetialArray = [[<span class="string">"H"</span>, <span class="string">"2B"</span>, <span class="string">"3B"</span>, <span class="string">"HR"</span>], [<span class="string">"BB"</span>, <span class="string">"HBP"</span>], [<span class="string">"E1"</span>, <span class="string">"E2"</span>, <span class="string">"E3"</span>, <span class="string">"E4"</span>, <span class="string">"E5"</span>, <span class="string">"E6"</span>, <span class="string">"E7"</span>, <span class="string">"E8"</span>, <span class="string">"E9"</span>], [<span class="string">"K"</span>, <span class="string">"K"</span>], [<span class="string">"SF"</span>, <span class="string">"SH"</span>]]</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> recordDetialArray = [[<span class="string">"H"</span>, <span class="string">"2B"</span>, <span class="string">"3B"</span>, <span class="string">"HR"</span>], [<span class="string">"BB"</span>, <span class="string">"HBP"</span>], [<span class="string">"E1"</span>, <span class="string">"E2"</span>, <span class="string">"E3"</span>, <span class="string">"E4"</span>, <span class="string">"E5"</span>, <span class="string">"E6"</span>, <span class="string">"E7"</span>, <span class="string">"E8"</span>, <span class="string">"E9"</span>], [<span class="string">"K"</span>, <span class="string">"K"</span>], [<span class="string">"SF"</span>, <span class="string">"SH"</span>]]</span><br></pre></td></tr></table></figure>
+
 <p>接下來修改一下<code>numberOfComponents</code>、<code>numberOfRowsInComponent</code>、<code>titleForRow</code>、<code>didSelectRow</code>這幾個方法</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">numberOfComponents</span><span class="params">(<span class="keyword">in</span> pickerView: UIPickerView)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">2</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(<span class="number">_</span> pickerView: UIPickerView, numberOfRowsInComponent component: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> component == <span class="number">0</span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> recordtypeArray.<span class="built_in">count</span></div><div class="line">    </div><div class="line">    &#125;</div><div class="line">		</div><div class="line">    <span class="keyword">return</span> recordDetialArray[recordPickerView.selectedRow(inComponent: <span class="number">0</span>)].<span class="built_in">count</span></div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(<span class="number">_</span> pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int)</span></span> -&gt; <span class="type">String</span>? &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> component == <span class="number">0</span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> recordtypeArray[row]</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> recordDetialArray[recordPickerView.selectedRow(inComponent: <span class="number">0</span>)][row]</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(<span class="number">_</span> pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)</span></span> &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> component == <span class="number">0</span> &#123;</div><div class="line">    </div><div class="line">        recordPickerView.reloadComponent(<span class="number">1</span>)</div><div class="line">        tempRecord = recordDetialArray[row][<span class="number">0</span>]</div><div class="line">    </div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> component == <span class="number">1</span> &#123;</div><div class="line">        </div><div class="line">        tempRecord = recordDetialArray[recordPickerView.selectedRow(inComponent: <span class="number">0</span>)][row]</div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">numberOfComponents</span><span class="params">(<span class="keyword">in</span> pickerView: UIPickerView)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(<span class="number">_</span> pickerView: UIPickerView, numberOfRowsInComponent component: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> component == <span class="number">0</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> recordtypeArray.<span class="built_in">count</span></span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">		</span><br><span class="line">    <span class="keyword">return</span> recordDetialArray[recordPickerView.selectedRow(inComponent: <span class="number">0</span>)].<span class="built_in">count</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(<span class="number">_</span> pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int)</span></span> -&gt; <span class="type">String</span>? &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> component == <span class="number">0</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> recordtypeArray[row]</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> recordDetialArray[recordPickerView.selectedRow(inComponent: <span class="number">0</span>)][row]</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(<span class="number">_</span> pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)</span></span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> component == <span class="number">0</span> &#123;</span><br><span class="line">    </span><br><span class="line">        recordPickerView.reloadComponent(<span class="number">1</span>)</span><br><span class="line">        tempRecord = recordDetialArray[row][<span class="number">0</span>]</span><br><span class="line">    </span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> component == <span class="number">1</span> &#123;</span><br><span class="line">        </span><br><span class="line">        tempRecord = recordDetialArray[recordPickerView.selectedRow(inComponent: <span class="number">0</span>)][row]</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>我們需要兩行，首先修改<code>numberOfComponents</code>回傳2</p>
 <p>再來修改<code>numberOfRowsInComponent</code>，如果是第零行就回傳<code>recordtypeArray</code>的陣列數量</p>
 <p>如果是第一行就回傳<code>recordDetialArray</code>中對應第零行被選到的對應陣列的數量</p>
@@ -175,7 +177,8 @@
 <p>第一行則呈現<code>recordDetialArray</code>中對應第零行被選到的對應陣列的字串</p>
 <p>然後定義當某一行某一列被選到的時候要做的動作</p>
 <p>但在做動作之前，先定義一些輔助用的變數</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> tempRecord: <span class="type">String</span> = <span class="string">"H"</span></div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tempRecord: <span class="type">String</span> = <span class="string">"H"</span></span><br></pre></td></tr></table></figure>
+
 <p>因為進入PickerView時預設是選擇第零列</p>
 <p>因此如果使用者都不做動作回傳的應該是安打(H)</p>
 <p>所以我們預設值給H</p>
@@ -187,7 +190,8 @@
 <p>最後來新增兩個按鈕在UIPickerView內</p>
 <p>讓使用者可以做新增或取消的動作</p>
 <p>並先將要執行動作的function準備好</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> addButton: <span class="type">UIButton</span> = &#123;</div><div class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</div><div class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">        button.backgroundColor = .purple</div><div class="line">        button.layer.cornerRadius = <span class="number">5</span></div><div class="line">        button.layer.borderColor = <span class="type">UIColor</span>.blue.cgColor</div><div class="line">        button.layer.borderWidth = <span class="number">2</span></div><div class="line">        button.setTitle(<span class="string">"UPDATE"</span>, <span class="keyword">for</span>: .normal)</div><div class="line">        button.titleLabel?.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">13</span>)</div><div class="line">        button.addTarget(<span class="keyword">self</span>, action: #selector(sendRecordBack), <span class="keyword">for</span>: .touchUpInside)</div><div class="line">        <span class="keyword">return</span> button</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> cancelButton: <span class="type">UIButton</span> = &#123;</div><div class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</div><div class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">        button.backgroundColor = .purple</div><div class="line">        button.layer.cornerRadius = <span class="number">5</span></div><div class="line">        button.layer.borderColor = <span class="type">UIColor</span>.blue.cgColor</div><div class="line">        button.layer.borderWidth = <span class="number">2</span></div><div class="line">        button.setTitle(<span class="string">"CANCEL"</span>, <span class="keyword">for</span>: .normal)</div><div class="line">        button.titleLabel?.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">13</span>)</div><div class="line">        button.addTarget(<span class="keyword">self</span>, action: #selector(sendRecordCancel), <span class="keyword">for</span>: .touchUpInside)</div><div class="line">        <span class="keyword">return</span> button</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        view.backgroundColor = .green</div><div class="line">        </div><div class="line">        recordPickerView = <span class="type">UIPickerView</span>()</div><div class="line">        recordPickerView.frame = <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="keyword">self</span>.view.bounds.height / <span class="number">3</span>, width: <span class="keyword">self</span>.view.bounds.width, height: <span class="number">200</span>)</div><div class="line">        recordPickerView.showsSelectionIndicator = <span class="literal">true</span></div><div class="line">        recordPickerView.delegate = <span class="keyword">self</span></div><div class="line">        recordPickerView.dataSource = <span class="keyword">self</span></div><div class="line">        </div><div class="line">        <span class="keyword">self</span>.view.addSubview(recordPickerView)</div><div class="line">        <span class="keyword">self</span>.view.addSubview(addButton)</div><div class="line">        <span class="keyword">self</span>.view.addSubview(cancelButton)</div><div class="line">        </div><div class="line">        addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">        addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: <span class="number">64</span>).isActive = <span class="literal">true</span></div><div class="line">        addButton.widthAnchor.constraint(equalToConstant: <span class="number">64</span>).isActive = <span class="literal">true</span></div><div class="line">        addButton.heightAnchor.constraint(equalToConstant: <span class="number">36</span>).isActive = <span class="literal">true</span></div><div class="line">        </div><div class="line">        cancelButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">        cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -<span class="number">64</span>).isActive = <span class="literal">true</span></div><div class="line">        cancelButton.widthAnchor.constraint(equalToConstant: <span class="number">64</span>).isActive = <span class="literal">true</span></div><div class="line">        cancelButton.heightAnchor.constraint(equalToConstant: <span class="number">36</span>).isActive = <span class="literal">true</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">sendRecordBack</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">sendRecordCancel</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> addButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</span><br><span class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        button.backgroundColor = .purple</span><br><span class="line">        button.layer.cornerRadius = <span class="number">5</span></span><br><span class="line">        button.layer.borderColor = <span class="type">UIColor</span>.blue.cgColor</span><br><span class="line">        button.layer.borderWidth = <span class="number">2</span></span><br><span class="line">        button.setTitle(<span class="string">"UPDATE"</span>, <span class="keyword">for</span>: .normal)</span><br><span class="line">        button.titleLabel?.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">13</span>)</span><br><span class="line">        button.addTarget(<span class="keyword">self</span>, action: #selector(sendRecordBack), <span class="keyword">for</span>: .touchUpInside)</span><br><span class="line">        <span class="keyword">return</span> button</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> cancelButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</span><br><span class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        button.backgroundColor = .purple</span><br><span class="line">        button.layer.cornerRadius = <span class="number">5</span></span><br><span class="line">        button.layer.borderColor = <span class="type">UIColor</span>.blue.cgColor</span><br><span class="line">        button.layer.borderWidth = <span class="number">2</span></span><br><span class="line">        button.setTitle(<span class="string">"CANCEL"</span>, <span class="keyword">for</span>: .normal)</span><br><span class="line">        button.titleLabel?.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">13</span>)</span><br><span class="line">        button.addTarget(<span class="keyword">self</span>, action: #selector(sendRecordCancel), <span class="keyword">for</span>: .touchUpInside)</span><br><span class="line">        <span class="keyword">return</span> button</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        view.backgroundColor = .green</span><br><span class="line">        </span><br><span class="line">        recordPickerView = <span class="type">UIPickerView</span>()</span><br><span class="line">        recordPickerView.frame = <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="keyword">self</span>.view.bounds.height / <span class="number">3</span>, width: <span class="keyword">self</span>.view.bounds.width, height: <span class="number">200</span>)</span><br><span class="line">        recordPickerView.showsSelectionIndicator = <span class="literal">true</span></span><br><span class="line">        recordPickerView.delegate = <span class="keyword">self</span></span><br><span class="line">        recordPickerView.dataSource = <span class="keyword">self</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(recordPickerView)</span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(addButton)</span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(cancelButton)</span><br><span class="line">        </span><br><span class="line">        addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">        addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: <span class="number">64</span>).isActive = <span class="literal">true</span></span><br><span class="line">        addButton.widthAnchor.constraint(equalToConstant: <span class="number">64</span>).isActive = <span class="literal">true</span></span><br><span class="line">        addButton.heightAnchor.constraint(equalToConstant: <span class="number">36</span>).isActive = <span class="literal">true</span></span><br><span class="line">        </span><br><span class="line">        cancelButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">        cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -<span class="number">64</span>).isActive = <span class="literal">true</span></span><br><span class="line">        cancelButton.widthAnchor.constraint(equalToConstant: <span class="number">64</span>).isActive = <span class="literal">true</span></span><br><span class="line">        cancelButton.heightAnchor.constraint(equalToConstant: <span class="number">36</span>).isActive = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">sendRecordBack</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">sendRecordCancel</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 <p>以上，接下來的明天處理</p>
 <p>今天回母校打系藍OB賽</p>
 <p>學弟們真是用心，準備不少球賽以外的活動</p>
@@ -208,22 +212,13 @@
 
     <!-- Comments -->
     
-    <div class="comments">
-        
-<div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-
-
-    </div>
-    
 
 </div>
         </section>
 
     </div>
 </div>
+
 
 </div>
 
@@ -245,6 +240,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
             </li>
             
@@ -254,10 +253,6 @@
             
             <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
             </li>
             
         </ul>
@@ -344,7 +339,7 @@
                     
                     
                     <li class="list-inline-item">
-                        <a href="mailto:donaldwu1101@gmail.com">
+                        <a href="mailto:test@example.com">
                             <span class="footer-icon-container">
                                 <i class="fa fa-envelope-o"></i>
                             </span>
@@ -388,18 +383,6 @@
 <script src="/donaldwu.github.com/js/main.js"></script>
 
 <!-- Disqus Comments -->
-
-<script type="text/javascript">
-    var disqus_shortname = 'Donaldwu';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
 

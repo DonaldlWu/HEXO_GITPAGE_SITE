@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,24 +23,24 @@ GitHub 位置">
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="用 Swift 做個推播發送器並在 Homebrew 上 Release"/>
+        <meta property="og:title" content="用 Swift 做個推播發送器並在 Homebrew 上 Release">
     
 
     <!--Open Graph Description-->
     
 
     <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
     
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary">
     
 
     <!-- Title -->
@@ -61,7 +61,7 @@ GitHub 位置">
     <![endif]-->
 
     <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
@@ -140,8 +140,6 @@ GitHub 位置">
                 <span class="date">2018-11-17</span>
             
             
-                <a href="#disqus_thread" class="comments">Comments</a>
-            
             
         </div>
     </div>
@@ -152,13 +150,14 @@ GitHub 位置">
         
 
         <!-- Post Content -->
-        <p>上個月的 <a href="https://medium.com/iplayground/iplayground-2018-slides-11587ebdddc5" target="_blank" rel="external">iPlayground</a> 真的收穫良多</p>
+        <p>上個月的 <a href="https://medium.com/iplayground/iplayground-2018-slides-11587ebdddc5" target="_blank" rel="noopener">iPlayground</a> 真的收穫良多</p>
 <p>今天就來記錄一下如何將寫好的 swift 程式變成可執行檔並上傳至 homebrew 供人下載 </p>
 <p><del>隔了一個月!!?? 謎之音：沒關係拉，Blog 都能從一月拖到十一月一篇都生不出來了</del></p>
-<p><a href="https://github.com/DonaldlWu/DRWApns" target="_blank" rel="external">GitHub 位置</a></p>
+<p><a href="https://github.com/DonaldlWu/DRWApns" target="_blank" rel="noopener">GitHub 位置</a></p>
 <a id="more"></a>
+
 <p>程式本身並不困難，僅僅是接收使用者在 Terminal 輸入的參數取得發送推播需要的資訊</p>
-<p>並拉入現成的 Package <a href="https://github.com/PerfectlySoft/Perfect-Notifications.git" target="_blank" rel="external">Perfect-Notifications</a></p>
+<p>並拉入現成的 Package <a href="https://github.com/PerfectlySoft/Perfect-Notifications.git" target="_blank" rel="noopener">Perfect-Notifications</a></p>
 <p>幫忙處理發送推播的實作，下次再來詳細討論關於發推播這件事</p>
 <p>今天主要來記錄一下將東西放到 homebrew 上這件事</p>
 <p>在完成程式的開發後主要的 Release 流程有以下幾點</p>
@@ -176,26 +175,33 @@ GitHub 位置">
 </ol>
 <h3 id="撰寫-Makefile"><a href="#撰寫-Makefile" class="headerlink" title="撰寫 Makefile"></a>撰寫 Makefile</h3><p>首先在專案下新建個 Makefile 檔案</p>
 <p>內容如下</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">PREFIX?=/usr/<span class="keyword">local</span></div><div class="line">PROD_NAME=DRWApns</div><div class="line">PROD_NAME_HOMEBREW=DRWApns</div><div class="line"></div><div class="line">build:</div><div class="line">  swift build <span class="comment">--disable-sandbox -c release -Xswiftc -static-stdlib</span></div><div class="line">build-<span class="keyword">for</span>-linux:</div><div class="line">  swift build <span class="comment">--disable-sandbox -c release</span></div><div class="line">install: build</div><div class="line">  mkdir -p <span class="string">"$(PREFIX)/bin"</span></div><div class="line">  cp -f <span class="string">".build/release/DRWApns"</span> <span class="string">"$(PREFIX)/bin/DRWAPns"</span></div><div class="line"><span class="built_in">run</span>:</div><div class="line">.build/release/$(PROD_NAME)</div></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">PREFIX?=/usr/<span class="keyword">local</span></span><br><span class="line">PROD_NAME=DRWApns</span><br><span class="line">PROD_NAME_HOMEBREW=DRWApns</span><br><span class="line"></span><br><span class="line">build:</span><br><span class="line">  swift build <span class="comment">--disable-sandbox -c release -Xswiftc -static-stdlib</span></span><br><span class="line">build-<span class="keyword">for</span>-linux:</span><br><span class="line">  swift build <span class="comment">--disable-sandbox -c release</span></span><br><span class="line">install: build</span><br><span class="line">  mkdir -p <span class="string">"$(PREFIX)/bin"</span></span><br><span class="line">  cp -f <span class="string">".build/release/DRWApns"</span> <span class="string">"$(PREFIX)/bin/DRWAPns"</span></span><br><span class="line"><span class="built_in">run</span>:</span><br><span class="line">.build/release/$(PROD_NAME)</span><br></pre></td></tr></table></figure>
+
 <p>接下來就是 Push 到 Github</p>
-<h3 id="Push-Repo-amp-Release"><a href="#Push-Repo-amp-Release" class="headerlink" title="Push Repo &amp; Release"></a>Push Repo &amp; Release</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin master</div></pre></td></tr></table></figure>
+<h3 id="Push-Repo-amp-Release"><a href="#Push-Repo-amp-Release" class="headerlink" title="Push Repo &amp; Release"></a>Push Repo &amp; Release</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
 <p>在 Repo 的首頁找到 Releases 的按鈕</p>
 <p>進去之後點擊右上新增一個 new release </p>
 <p><img src="https://user-images.githubusercontent.com/28559915/48698417-fe572500-ec21-11e8-9ed0-3ab1edbd44a8.gif" alt="newdraft"></p>
 <p>接下來將游標移到 Source code(tar.gz) 右鍵複製一下鏈結</p>
 <p><img src="https://user-images.githubusercontent.com/28559915/48698728-ca303400-ec22-11e8-8055-bda6047cbc6a.gif" alt="copylink"></p>
 <h3 id="用-brew-create-製作-formula-file"><a href="#用-brew-create-製作-formula-file" class="headerlink" title="用 brew create 製作 formula file"></a>用 brew create 製作 formula file</h3><p>接下來打開 terminal 輸入</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew create 剛剛複製的鏈結</div></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew create 剛剛複製的鏈結</span><br></pre></td></tr></table></figure>
+
 <p>homebrew 就會幫你做好一個 formula.rb 檔案</p>
 <p>附上最後我們調整過後需要的部分</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># Documentation: https://docs.brew.sh/Formula-Cookbook</div><div class="line">#                https://www.rubydoc.info/github/Homebrew/brew/master/Formula</div><div class="line"># PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!</div><div class="line">class Drwapns &lt; Formula</div><div class="line">    desc "A tool for sending push notification to iOS devices"</div><div class="line">    homepage ""</div><div class="line">    url "https://github.com/DonaldlWu/DRWApns/archive/1.0.5.tar.gz"</div><div class="line">    sha256 "ad5b27f1b5ca929311ec5873b4ecc61d2ca7aaa496531b1b9024f9a714c2020a"</div><div class="line">  def install</div><div class="line">    system "make", "install", "PREFIX=#&#123;prefix&#125;" # if this fails, try separate make/make install steps</div><div class="line">  end</div><div class="line"></div><div class="line">  depends_on :xcode =&gt; ["9.2", :build]</div><div class="line">end</div></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Documentation: https://docs.brew.sh/Formula-Cookbook</span></span><br><span class="line"><span class="comment">#                https://www.rubydoc.info/github/Homebrew/brew/master/Formula</span></span><br><span class="line"><span class="comment"># PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!</span></span><br><span class="line"><span class="built_in">class</span> Drwapns &lt; Formula</span><br><span class="line">    desc <span class="string">"A tool for sending push notification to iOS devices"</span></span><br><span class="line">    homepage <span class="string">""</span></span><br><span class="line">    url <span class="string">"https://github.com/DonaldlWu/DRWApns/archive/1.0.5.tar.gz"</span></span><br><span class="line">    sha256 <span class="string">"ad5b27f1b5ca929311ec5873b4ecc61d2ca7aaa496531b1b9024f9a714c2020a"</span></span><br><span class="line">  def install</span><br><span class="line">    system <span class="string">"make"</span>, <span class="string">"install"</span>, <span class="string">"PREFIX=#&#123;prefix&#125;"</span> <span class="comment"># if this fails, try separate make/make install steps</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  depends_on :xcode =&gt; ["9.2", :build]</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
 <p>接下來在 Github 上創一個負責集中管理 .rb 檔案的 Repo</p>
 <p>並將改好的 .rb 檔 push 上去</p>
 <h3 id="驗證下載"><a href="#驗證下載" class="headerlink" title="驗證下載"></a>驗證下載</h3><p>一樣來到 Terminal 輸入</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install &#123;.rb 檔 repo 的名稱&#125;/&#123;.rb 檔名&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install &#123;.rb 檔 repo 的名稱&#125;/&#123;.rb 檔名&#125;</span><br></pre></td></tr></table></figure>
+
 <p>以我的 Repo 當範例就是</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install DonaldlWu/homebrew-taps/drwapns</div></pre></td></tr></table></figure>
-<p><img width="1038" alt="2018-11-18 9 20 16" src="https://user-images.githubusercontent.com/28559915/48673004-06f32100-eb78-11e8-8e15-c14f072ed3dc.png"></p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install DonaldlWu/homebrew-taps/drwapns</span><br></pre></td></tr></table></figure>
+
+<img width="1038" alt="2018-11-18 9 20 16" src="https://user-images.githubusercontent.com/28559915/48673004-06f32100-eb78-11e8-8e15-c14f072ed3dc.png">
+
 <p>最後移動到 <code>/usr/local/Cellar/{rb檔名}/{release version}/bin</code></p>
 <p>並執行編譯好的的執行檔 </p>
 <p>Done!!!</p>
@@ -213,22 +219,13 @@ GitHub 位置">
 
     <!-- Comments -->
     
-    <div class="comments">
-        
-<div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-
-
-    </div>
-    
 
 </div>
         </section>
 
     </div>
 </div>
+
 
 </div>
 
@@ -250,6 +247,10 @@ GitHub 位置">
         <ul>
             
             <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
             </li>
             
@@ -259,10 +260,6 @@ GitHub 位置">
             
             <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
             </li>
             
         </ul>
@@ -349,7 +346,7 @@ GitHub 位置">
                     
                     
                     <li class="list-inline-item">
-                        <a href="mailto:donaldwu1101@gmail.com">
+                        <a href="mailto:test@example.com">
                             <span class="footer-icon-container">
                                 <i class="fa fa-envelope-o"></i>
                             </span>
@@ -393,18 +390,6 @@ GitHub 位置">
 <script src="/donaldwu.github.com/js/main.js"></script>
 
 <!-- Disqus Comments -->
-
-<script type="text/javascript">
-    var disqus_shortname = 'Donaldwu';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
 

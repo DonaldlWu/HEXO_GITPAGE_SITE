@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,24 +22,24 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Swift隨手紀錄Day20-新增成員頁面-UIImagePickerController-Part2"/>
+        <meta property="og:title" content="Swift隨手紀錄Day20-新增成員頁面-UIImagePickerController-Part2">
     
 
     <!--Open Graph Description-->
     
 
     <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
     
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary">
     
 
     <!-- Title -->
@@ -60,7 +60,7 @@
     <![endif]-->
 
     <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
@@ -139,8 +139,6 @@
                 <span class="date">2017-07-11</span>
             
             
-                <a href="#disqus_thread" class="comments">Comments</a>
-            
             
         </div>
     </div>
@@ -155,33 +153,40 @@
 <p>今天會把換圖像的功能做完</p>
 <p>順便處理一些昨天把螢幕旋轉限制解除之後的幾個衍生問題處理一下</p>
 <a id="more"></a>
+
 <p>第一步先來看看UIImagePicker提供了些什麼資訊給我們</p>
 <p>進到AddMemberHandler.swift</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">handleChangeImage</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">let</span> imagePicker = <span class="type">UIImagePickerController</span>()</div><div class="line">    imagePicker.delegate = <span class="keyword">self</span></div><div class="line">    imagePicker.allowsEditing = <span class="literal">true</span></div><div class="line">    imagePicker.modalPresentationStyle = .popover</div><div class="line">    present(imagePicker, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">imagePickerController</span><span class="params">(<span class="number">_</span> picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])</span></span> &#123;</div><div class="line">    </div><div class="line">    <span class="built_in">print</span>(info)</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">handleChangeImage</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> imagePicker = <span class="type">UIImagePickerController</span>()</span><br><span class="line">    imagePicker.delegate = <span class="keyword">self</span></span><br><span class="line">    imagePicker.allowsEditing = <span class="literal">true</span></span><br><span class="line">    imagePicker.modalPresentationStyle = .popover</span><br><span class="line">    present(imagePicker, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">imagePickerController</span><span class="params">(<span class="number">_</span> picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])</span></span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(info)</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>為了可以編輯圖片的大小，先把imagePicker的allowEditing打開</p>
 <p>然後新增didFinishPickingMediaWithInfo的function</p>
 <p>接下來執行一下</p>
-<img src="/donaldwu.github.com/2017/07/11/Swift隨手紀錄Day20-新增成員頁面-UIImagePickerController-Part2/Day20Info.gif" alt="Day20Info.gif" title="">
+<img src="/donaldwu.github.com/2017/07/11/Swift隨手紀錄Day20-新增成員頁面-UIImagePickerController-Part2/Day20Info.gif">
+
 <p>這裡其實我們可以看到這個函數裡的info可以提供我們五組數據</p>
 <p>這邊我們需要圖片原本的大小，或者是有經過調整之後的大小</p>
 <p>所以我們要用的的數據分別是<code>UIImagePickerControllerOriginalImage</code>以及<code>UIImagePickerControllerEditedImage</code></p>
 <p>這兩組key底下的數據</p>
 <p>知道需求就來改寫didFinishPickingMediaWithInfo</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">imagePickerController</span><span class="params">(<span class="number">_</span> picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> selectedImageFromPicker: <span class="type">UIImage</span>?</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> editedImage = info[<span class="string">"UIImagePickerControllerEditedImage"</span>] <span class="keyword">as</span>? <span class="type">UIImage</span> &#123;</div><div class="line">        selectedImageFromPicker = editedImage</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="keyword">let</span> originalImage = info[<span class="string">"UIImagePickerControllerOriginalImage"</span>] <span class="keyword">as</span>? <span class="type">UIImage</span> &#123;</div><div class="line">        selectedImageFromPicker = originalImage</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> selectedImage = selectedImageFromPicker &#123;</div><div class="line">        profileImage.image = selectedImage</div><div class="line">    &#125;</div><div class="line">    dismiss(animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">imagePickerController</span><span class="params">(<span class="number">_</span> picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> selectedImageFromPicker: <span class="type">UIImage</span>?</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> editedImage = info[<span class="string">"UIImagePickerControllerEditedImage"</span>] <span class="keyword">as</span>? <span class="type">UIImage</span> &#123;</span><br><span class="line">        selectedImageFromPicker = editedImage</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="keyword">let</span> originalImage = info[<span class="string">"UIImagePickerControllerOriginalImage"</span>] <span class="keyword">as</span>? <span class="type">UIImage</span> &#123;</span><br><span class="line">        selectedImageFromPicker = originalImage</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> selectedImage = selectedImageFromPicker &#123;</span><br><span class="line">        profileImage.image = selectedImage</span><br><span class="line">    &#125;</span><br><span class="line">    dismiss(animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>function內先定義一個變數來儲存圖片</p>
 <p>如果是經過修改的圖片就把<code>UIImagePickerControllerEditedImage</code>內的UIImage存進<code>selectedImageFromPicker</code></p>
 <p>如果是原圖就在<code>selectedImageFromPicker</code>內儲存<code>UIImagePickerControllerEditedImage</code>內的資料</p>
 <p>接下來，判斷是否<code>selectedImageFromPicker</code>內有值，如果有，就把<code>profileImage</code>內的圖片替換掉</p>
 <p>最後把畫面退出，Done</p>
-<img src="/donaldwu.github.com/2017/07/11/Swift隨手紀錄Day20-新增成員頁面-UIImagePickerController-Part2/Day20ChangePic.gif" alt="Day20ChangePic.gif" title="">
+<img src="/donaldwu.github.com/2017/07/11/Swift隨手紀錄Day20-新增成員頁面-UIImagePickerController-Part2/Day20ChangePic.gif">
+
 <p>然後修正一下在AddMemberController.swift內處理keyboard升降的function</p>
 <p>在可以旋轉螢幕的情況下，直立時keyboard就不會影響到現有畫面</p>
 <p>所以我們先判斷使用者現在螢幕的狀態是橫躺還是直立的</p>
 <p>如果是橫躺就做跟之前一樣的動作(抬高或降低畫面)</p>
 <p>如果是直立就任何事都不做</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">keyboardWillShow</span><span class="params">(notification: NSNotification)</span></span> &#123;</div><div class="line">    <span class="keyword">if</span> <span class="type">UIDevice</span>.current.orientation != .portrait &#123;</div><div class="line">        <span class="keyword">if</span> <span class="keyword">let</span> keyboardSize = (notification.userInfo?[<span class="type">UIKeyboardFrameBeginUserInfoKey</span>] <span class="keyword">as</span>? <span class="type">NSValue</span>)?.cgRectValue &#123;</div><div class="line">            <span class="keyword">if</span> <span class="keyword">self</span>.view.frame.origin.y == <span class="number">0</span>&#123;</div><div class="line">                <span class="keyword">self</span>.view.frame.origin.y -= keyboardSize.height</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">keyboardWillHide</span><span class="params">(notification: NSNotification)</span></span> &#123;</div><div class="line">    <span class="keyword">if</span> <span class="type">UIDevice</span>.current.orientation != .portrait &#123;</div><div class="line">        <span class="keyword">if</span> <span class="keyword">let</span> keyboardSize = (notification.userInfo?[<span class="type">UIKeyboardFrameBeginUserInfoKey</span>] <span class="keyword">as</span>? <span class="type">NSValue</span>)?.cgRectValue &#123;</div><div class="line">            <span class="keyword">if</span> <span class="keyword">self</span>.view.frame.origin.y != <span class="number">0</span>&#123;</div><div class="line">                <span class="keyword">self</span>.view.frame.origin.y += keyboardSize.height</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">keyboardWillShow</span><span class="params">(notification: NSNotification)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="type">UIDevice</span>.current.orientation != .portrait &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> keyboardSize = (notification.userInfo?[<span class="type">UIKeyboardFrameBeginUserInfoKey</span>] <span class="keyword">as</span>? <span class="type">NSValue</span>)?.cgRectValue &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">self</span>.view.frame.origin.y == <span class="number">0</span>&#123;</span><br><span class="line">                <span class="keyword">self</span>.view.frame.origin.y -= keyboardSize.height</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">keyboardWillHide</span><span class="params">(notification: NSNotification)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="type">UIDevice</span>.current.orientation != .portrait &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> keyboardSize = (notification.userInfo?[<span class="type">UIKeyboardFrameBeginUserInfoKey</span>] <span class="keyword">as</span>? <span class="type">NSValue</span>)?.cgRectValue &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">self</span>.view.frame.origin.y != <span class="number">0</span>&#123;</span><br><span class="line">                <span class="keyword">self</span>.view.frame.origin.y += keyboardSize.height</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>最後的最後稍微調整一下這一頁的畫面的anchor，因為發現在小螢幕似乎會切到</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">super</span>.viewDidLoad()</div><div class="line">    <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>, selector: #selector(<span class="type">AddMemberController</span>.keyboardWillShow), name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">UIKeyboardWillShow</span>, object: <span class="literal">nil</span>)</div><div class="line">    <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>, selector: #selector(<span class="type">AddMemberController</span>.keyboardWillHide), name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">UIKeyboardWillHide</span>, object: <span class="literal">nil</span>)</div><div class="line">    view.backgroundColor = .white</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> backButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">"BACK"</span>, style: .done, target: <span class="keyword">self</span>, action: #selector(backHome))</div><div class="line">    navigationItem.leftBarButtonItem = backButton</div><div class="line">    </div><div class="line">    view.addSubview(profileImage)</div><div class="line">    view.addSubview(positionSegmentedControl)</div><div class="line">    view.addSubview(nameText)</div><div class="line">    view.addSubview(registerButton)</div><div class="line">    </div><div class="line">    profileImage.topAnchor.constraint(equalTo: view.topAnchor, constant: <span class="number">64</span>).isActive = <span class="literal">true</span></div><div class="line">    profileImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></div><div class="line">    profileImage.heightAnchor.constraint(equalToConstant: <span class="number">110</span>).isActive = <span class="literal">true</span></div><div class="line">    profileImage.widthAnchor.constraint(equalToConstant: <span class="number">110</span>).isActive = <span class="literal">true</span></div><div class="line">    </div><div class="line">    positionSegmentedControl.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: <span class="number">28</span>).isActive = <span class="literal">true</span></div><div class="line">    positionSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></div><div class="line">    positionSegmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -<span class="number">24</span>).isActive = <span class="literal">true</span></div><div class="line">    positionSegmentedControl.heightAnchor.constraint(equalToConstant: <span class="number">24</span>).isActive = <span class="literal">true</span></div><div class="line">    </div><div class="line">    </div><div class="line">    nameText.topAnchor.constraint(equalTo: positionSegmentedControl.bottomAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></div><div class="line">    nameText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></div><div class="line">    nameText.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -<span class="number">24</span>).isActive = <span class="literal">true</span></div><div class="line">    nameText.heightAnchor.constraint(equalToConstant: <span class="number">30</span>).isActive = <span class="literal">true</span></div><div class="line">    </div><div class="line">    registerButton.topAnchor.constraint(equalTo: nameText.bottomAnchor, constant: <span class="number">8</span>).isActive = <span class="literal">true</span></div><div class="line">    registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></div><div class="line">    registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -<span class="number">24</span>).isActive = <span class="literal">true</span></div><div class="line">    registerButton.heightAnchor.constraint(equalToConstant: <span class="number">48</span>).isActive = <span class="literal">true</span></div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">    <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>, selector: #selector(<span class="type">AddMemberController</span>.keyboardWillShow), name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">UIKeyboardWillShow</span>, object: <span class="literal">nil</span>)</span><br><span class="line">    <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>, selector: #selector(<span class="type">AddMemberController</span>.keyboardWillHide), name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">UIKeyboardWillHide</span>, object: <span class="literal">nil</span>)</span><br><span class="line">    view.backgroundColor = .white</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> backButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">"BACK"</span>, style: .done, target: <span class="keyword">self</span>, action: #selector(backHome))</span><br><span class="line">    navigationItem.leftBarButtonItem = backButton</span><br><span class="line">    </span><br><span class="line">    view.addSubview(profileImage)</span><br><span class="line">    view.addSubview(positionSegmentedControl)</span><br><span class="line">    view.addSubview(nameText)</span><br><span class="line">    view.addSubview(registerButton)</span><br><span class="line">    </span><br><span class="line">    profileImage.topAnchor.constraint(equalTo: view.topAnchor, constant: <span class="number">64</span>).isActive = <span class="literal">true</span></span><br><span class="line">    profileImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br><span class="line">    profileImage.heightAnchor.constraint(equalToConstant: <span class="number">110</span>).isActive = <span class="literal">true</span></span><br><span class="line">    profileImage.widthAnchor.constraint(equalToConstant: <span class="number">110</span>).isActive = <span class="literal">true</span></span><br><span class="line">    </span><br><span class="line">    positionSegmentedControl.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: <span class="number">28</span>).isActive = <span class="literal">true</span></span><br><span class="line">    positionSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br><span class="line">    positionSegmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -<span class="number">24</span>).isActive = <span class="literal">true</span></span><br><span class="line">    positionSegmentedControl.heightAnchor.constraint(equalToConstant: <span class="number">24</span>).isActive = <span class="literal">true</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    nameText.topAnchor.constraint(equalTo: positionSegmentedControl.bottomAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">    nameText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br><span class="line">    nameText.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -<span class="number">24</span>).isActive = <span class="literal">true</span></span><br><span class="line">    nameText.heightAnchor.constraint(equalToConstant: <span class="number">30</span>).isActive = <span class="literal">true</span></span><br><span class="line">    </span><br><span class="line">    registerButton.topAnchor.constraint(equalTo: nameText.bottomAnchor, constant: <span class="number">8</span>).isActive = <span class="literal">true</span></span><br><span class="line">    registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br><span class="line">    registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -<span class="number">24</span>).isActive = <span class="literal">true</span></span><br><span class="line">    registerButton.heightAnchor.constraint(equalToConstant: <span class="number">48</span>).isActive = <span class="literal">true</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>下篇待續～</p>
 
     </div>
@@ -197,22 +202,13 @@
 
     <!-- Comments -->
     
-    <div class="comments">
-        
-<div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-
-
-    </div>
-    
 
 </div>
         </section>
 
     </div>
 </div>
+
 
 </div>
 
@@ -234,6 +230,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
             </li>
             
@@ -243,10 +243,6 @@
             
             <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
             </li>
             
         </ul>
@@ -333,7 +329,7 @@
                     
                     
                     <li class="list-inline-item">
-                        <a href="mailto:donaldwu1101@gmail.com">
+                        <a href="mailto:test@example.com">
                             <span class="footer-icon-container">
                                 <i class="fa fa-envelope-o"></i>
                             </span>
@@ -377,18 +373,6 @@
 <script src="/donaldwu.github.com/js/main.js"></script>
 
 <!-- Disqus Comments -->
-
-<script type="text/javascript">
-    var disqus_shortname = 'Donaldwu';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
 

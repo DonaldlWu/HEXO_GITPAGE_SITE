@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,24 +25,24 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="CoreData、UserDefault"/>
+        <meta property="og:title" content="CoreData、UserDefault">
     
 
     <!--Open Graph Description-->
     
 
     <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground"/>
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
     
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary">
     
 
     <!-- Title -->
@@ -63,7 +63,7 @@
     <![endif]-->
 
     <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
@@ -142,8 +142,6 @@
                 <span class="date">2017-08-20</span>
             
             
-                <a href="#disqus_thread" class="comments">Comments</a>
-            
             
         </div>
     </div>
@@ -161,23 +159,30 @@
 <p>有的話就拿回該有的資訊讓使用者繼續記錄</p>
 <p>至於要用什麼方式來儲存使用者紀錄的資料呢？</p>
 <a id="more"></a>
+
 <p>有想過將資料完全存在後台，而現在使用儲存資料的Firebase realtime database確實很好用</p>
 <p>但考慮到用量以及資料儲存的方式，似乎沒有需要將大量之後不需要的資訊儲存在realtime database中</p>
 <p>接下來的選擇我想到了UserDefault，用來儲存是否有記錄中的狀態相當不錯</p>
 <p>但如果要儲存已經是一個個物件的比賽的相關紀錄處理上相對麻煩</p>
 <p>因此最後選擇使用了CoreData來儲存物件，UserDefault來儲存狀態的方法</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">saveToCoreData</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> appDel = <span class="type">UIApplication</span>.shared.delegate <span class="keyword">as</span>? <span class="type">AppDelegate</span></div><div class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> context = appDel?.persistentContainer.viewContext <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</div><div class="line">        <span class="keyword">do</span> &#123;</div><div class="line">            <span class="keyword">let</span> results = <span class="keyword">try</span> context.fetch(<span class="type">PlayingPlayer</span>.fetchRequest())</div><div class="line">            </div><div class="line">            <span class="comment">// If CoreData already have data</span></div><div class="line">            <span class="keyword">if</span> results.<span class="built_in">count</span> &gt;= <span class="number">9</span> &#123;</div><div class="line">                <span class="keyword">for</span> (i,item) <span class="keyword">in</span> results.enumerated() &#123;</div><div class="line">                    <span class="keyword">let</span> editPlayer = item <span class="keyword">as</span>? <span class="type">PlayingPlayer</span></div><div class="line">                    <span class="keyword">if</span> editPlayer?.name == <span class="keyword">self</span>.players[i].name &#123;</div><div class="line">                        editPlayer?.mid = <span class="keyword">self</span>.players[i].mid</div><div class="line">                        editPlayer?.name = <span class="keyword">self</span>.players[i].name</div><div class="line">                        editPlayer?.position = <span class="keyword">self</span>.players[i].position</div><div class="line">                        editPlayer?.profileImage = <span class="keyword">self</span>.players[i].profileImage</div><div class="line">                        <span class="keyword">let</span> array = <span class="keyword">self</span>.players[i].recordArray</div><div class="line">                        <span class="keyword">let</span> data = <span class="type">NSKeyedArchiver</span>.archivedData(withRootObject: array)</div><div class="line">                        editPlayer?.recordArray = data <span class="keyword">as</span> <span class="type">NSData</span></div><div class="line">                        appDel?.saveContext()</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">            <span class="comment">// No Data</span></div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">for</span> savedPlayer <span class="keyword">in</span> <span class="keyword">self</span>.players &#123;</div><div class="line">                    <span class="keyword">let</span> player = <span class="type">PlayingPlayer</span>(context: context)</div><div class="line">                    player.mid = savedPlayer.mid</div><div class="line">                    player.name = savedPlayer.name</div><div class="line">                    player.position = savedPlayer.position</div><div class="line">                    player.order = savedPlayer.order</div><div class="line">                    player.profileImage = savedPlayer.profileImage</div><div class="line">                    <span class="keyword">let</span> array = savedPlayer.recordArray</div><div class="line">                    <span class="keyword">let</span> data = <span class="type">NSKeyedArchiver</span>.archivedData(withRootObject: array)</div><div class="line">                    player.recordArray = data <span class="keyword">as</span> <span class="type">NSData</span></div><div class="line">                    appDel?.saveContext()</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> &#123;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">saveToCoreData</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> appDel = <span class="type">UIApplication</span>.shared.delegate <span class="keyword">as</span>? <span class="type">AppDelegate</span></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> context = appDel?.persistentContainer.viewContext <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> results = <span class="keyword">try</span> context.fetch(<span class="type">PlayingPlayer</span>.fetchRequest())</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// If CoreData already have data</span></span><br><span class="line">            <span class="keyword">if</span> results.<span class="built_in">count</span> &gt;= <span class="number">9</span> &#123;</span><br><span class="line">                <span class="keyword">for</span> (i,item) <span class="keyword">in</span> results.enumerated() &#123;</span><br><span class="line">                    <span class="keyword">let</span> editPlayer = item <span class="keyword">as</span>? <span class="type">PlayingPlayer</span></span><br><span class="line">                    <span class="keyword">if</span> editPlayer?.name == <span class="keyword">self</span>.players[i].name &#123;</span><br><span class="line">                        editPlayer?.mid = <span class="keyword">self</span>.players[i].mid</span><br><span class="line">                        editPlayer?.name = <span class="keyword">self</span>.players[i].name</span><br><span class="line">                        editPlayer?.position = <span class="keyword">self</span>.players[i].position</span><br><span class="line">                        editPlayer?.profileImage = <span class="keyword">self</span>.players[i].profileImage</span><br><span class="line">                        <span class="keyword">let</span> array = <span class="keyword">self</span>.players[i].recordArray</span><br><span class="line">                        <span class="keyword">let</span> data = <span class="type">NSKeyedArchiver</span>.archivedData(withRootObject: array)</span><br><span class="line">                        editPlayer?.recordArray = data <span class="keyword">as</span> <span class="type">NSData</span></span><br><span class="line">                        appDel?.saveContext()</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            <span class="comment">// No Data</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">for</span> savedPlayer <span class="keyword">in</span> <span class="keyword">self</span>.players &#123;</span><br><span class="line">                    <span class="keyword">let</span> player = <span class="type">PlayingPlayer</span>(context: context)</span><br><span class="line">                    player.mid = savedPlayer.mid</span><br><span class="line">                    player.name = savedPlayer.name</span><br><span class="line">                    player.position = savedPlayer.position</span><br><span class="line">                    player.order = savedPlayer.order</span><br><span class="line">                    player.profileImage = savedPlayer.profileImage</span><br><span class="line">                    <span class="keyword">let</span> array = savedPlayer.recordArray</span><br><span class="line">                    <span class="keyword">let</span> data = <span class="type">NSKeyedArchiver</span>.archivedData(withRootObject: array)</span><br><span class="line">                    player.recordArray = data <span class="keyword">as</span> <span class="type">NSData</span></span><br><span class="line">                    appDel?.saveContext()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 <p>再進入紀錄頁面之前的TabBarController新增將目前物件存放到CoreData的function</p>
 <p>然後設定key為<code>gaming</code>的UserDefault為true，作為現在正在記錄中的狀態</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">UserDefaults</span>.standard.setValue(<span class="string">"true"</span>, forKey: <span class="string">"gaming"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UserDefaults</span>.standard.setValue(<span class="string">"true"</span>, forKey: <span class="string">"gaming"</span>)</span><br></pre></td></tr></table></figure>
+
 <p>接下來也得設定在使用者按下比賽結束的按鈕時將狀態設為false</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">UserDefaults</span>.standard.setValue(<span class="string">"false"</span>, forKey: <span class="string">"gaming"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UserDefaults</span>.standard.setValue(<span class="string">"false"</span>, forKey: <span class="string">"gaming"</span>)</span><br></pre></td></tr></table></figure>
+
 <p>然後使用者進入到在HomeController時拿出<code>gaming</code>來判斷是否正在記錄中</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">checkIsGaming</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> gamingStatus = <span class="type">UserDefaults</span>.standard.string(forKey: <span class="string">"gaming"</span>) <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> gamingStatus == <span class="string">"true"</span> &#123;</div><div class="line">            getDataFromCoreData()</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> gamingStatus == <span class="string">"false"</span> &#123;</div><div class="line">            <span class="keyword">return</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">checkIsGaming</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> gamingStatus = <span class="type">UserDefaults</span>.standard.string(forKey: <span class="string">"gaming"</span>) <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> gamingStatus == <span class="string">"true"</span> &#123;</span><br><span class="line">            getDataFromCoreData()</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> gamingStatus == <span class="string">"false"</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 <p>最後如果確定正在記錄中就去把coreData中的資料取出來並把畫面帶到GameTabBarController</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">getDataFromCoreData</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">let</span> appDel = <span class="type">UIApplication</span>.shared.delegate <span class="keyword">as</span>? <span class="type">AppDelegate</span></div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> context = appDel?.persistentContainer.viewContext <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</div><div class="line">    <span class="keyword">do</span> &#123;</div><div class="line">        <span class="keyword">let</span> result = <span class="keyword">try</span> context.fetch(<span class="type">PlayingPlayer</span>.fetchRequest())</div><div class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> result &#123;</div><div class="line">            <span class="keyword">let</span> thisPlayer = item <span class="keyword">as</span>? <span class="type">PlayingPlayer</span></div><div class="line">            <span class="comment">// Reconstruct by using map</span></div><div class="line">            </div><div class="line">            <span class="keyword">if</span> thisPlayer?.recordArray != <span class="literal">nil</span> &#123;</div><div class="line">                <span class="keyword">let</span> unarchiveObject = <span class="type">NSKeyedUnarchiver</span>.unarchiveObject(with: (thisPlayer?.recordArray <span class="keyword">as</span> <span class="type">NSData</span>?)! <span class="keyword">as</span> <span class="type">Data</span>)</div><div class="line">                <span class="keyword">let</span> arrayObject = unarchiveObject <span class="keyword">as</span> <span class="type">AnyObject</span>! <span class="keyword">as</span>! <span class="type">Array</span>&lt;<span class="type">String</span>&gt;</div><div class="line">                <span class="keyword">let</span> array = arrayObject</div><div class="line">                <span class="keyword">self</span>.players.append(<span class="type">Player</span>(mid: thisPlayer?.mid, name: thisPlayer?.name, order: thisPlayer?.order, position: thisPlayer?.position, recordArray: array, profileImage: thisPlayer?.profileImage))</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">self</span>.players.append(<span class="type">Player</span>(mid: thisPlayer?.mid, name: thisPlayer?.name, order: thisPlayer?.order, position: thisPlayer?.position, recordArray: [], profileImage: thisPlayer?.profileImage))</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">catch</span> &#123;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> players.<span class="built_in">count</span> &gt;= <span class="number">9</span> &#123;</div><div class="line">        goToGameTabBarController()</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">goToGameTabBarController</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">let</span> controller = <span class="type">GameTabBarController</span>()</div><div class="line">    controller.players = <span class="keyword">self</span>.players</div><div class="line">    present(controller, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getDataFromCoreData</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> appDel = <span class="type">UIApplication</span>.shared.delegate <span class="keyword">as</span>? <span class="type">AppDelegate</span></span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> context = appDel?.persistentContainer.viewContext <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> result = <span class="keyword">try</span> context.fetch(<span class="type">PlayingPlayer</span>.fetchRequest())</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> result &#123;</span><br><span class="line">            <span class="keyword">let</span> thisPlayer = item <span class="keyword">as</span>? <span class="type">PlayingPlayer</span></span><br><span class="line">            <span class="comment">// Reconstruct by using map</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> thisPlayer?.recordArray != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> unarchiveObject = <span class="type">NSKeyedUnarchiver</span>.unarchiveObject(with: (thisPlayer?.recordArray <span class="keyword">as</span> <span class="type">NSData</span>?)! <span class="keyword">as</span> <span class="type">Data</span>)</span><br><span class="line">                <span class="keyword">let</span> arrayObject = unarchiveObject <span class="keyword">as</span> <span class="type">AnyObject</span>! <span class="keyword">as</span>! <span class="type">Array</span>&lt;<span class="type">String</span>&gt;</span><br><span class="line">                <span class="keyword">let</span> array = arrayObject</span><br><span class="line">                <span class="keyword">self</span>.players.append(<span class="type">Player</span>(mid: thisPlayer?.mid, name: thisPlayer?.name, order: thisPlayer?.order, position: thisPlayer?.position, recordArray: array, profileImage: thisPlayer?.profileImage))</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">self</span>.players.append(<span class="type">Player</span>(mid: thisPlayer?.mid, name: thisPlayer?.name, order: thisPlayer?.order, position: thisPlayer?.position, recordArray: [], profileImage: thisPlayer?.profileImage))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> players.<span class="built_in">count</span> &gt;= <span class="number">9</span> &#123;</span><br><span class="line">        goToGameTabBarController()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">goToGameTabBarController</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> controller = <span class="type">GameTabBarController</span>()</span><br><span class="line">    controller.players = <span class="keyword">self</span>.players</span><br><span class="line">    present(controller, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>看看執行結果</p>
-<img src="/donaldwu.github.com/2017/08/20/CoreData、UserDefault/CoreDataDemo.gif" alt="CoreDataDemo.gif" title="">
+<img src="/donaldwu.github.com/2017/08/20/CoreData、UserDefault/CoreDataDemo.gif">
+
 <p>這兩天也順便把程式碼再重構了一部分</p>
 <p>把太煩雜的Controller切割成我自己定義的function以及原本controller所繼承的function兩部份</p>
 <p>順便把儲存Player紀錄的array部分簡化了一下</p>
@@ -199,22 +204,13 @@
 
     <!-- Comments -->
     
-    <div class="comments">
-        
-<div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-
-
-    </div>
-    
 
 </div>
         </section>
 
     </div>
 </div>
+
 
 </div>
 
@@ -236,6 +232,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
             </li>
             
@@ -245,10 +245,6 @@
             
             <li>
                 <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/donaldwu.github.com/2018/01/03/無聊實驗室：vim基本操作/">無聊實驗室：vim基本操作</a>
             </li>
             
         </ul>
@@ -335,7 +331,7 @@
                     
                     
                     <li class="list-inline-item">
-                        <a href="mailto:donaldwu1101@gmail.com">
+                        <a href="mailto:test@example.com">
                             <span class="footer-icon-container">
                                 <i class="fa fa-envelope-o"></i>
                             </span>
@@ -379,18 +375,6 @@
 <script src="/donaldwu.github.com/js/main.js"></script>
 
 <!-- Disqus Comments -->
-
-<script type="text/javascript">
-    var disqus_shortname = 'Donaldwu';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
 
