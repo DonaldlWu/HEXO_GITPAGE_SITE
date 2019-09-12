@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="防止偷懶Day18
+講了好久的新增成員終於要來做了＠＠
+預想中希望有一個UIImageView來選擇頭像
+當然也要一個TextField來輸入名字，以及註冊用的button
+然後有一個選擇守備位置的功能
+想了一想，用之前玩過的SegmentedControl來試試效果好了
+GO">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Swift隨手紀錄Day18-新增成員頁面-UIView-SegmentedControl">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Swift隨手紀錄Day18-新增成員頁面-UIView-SegmentedControl - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2017/07/09/Swift隨手紀錄Day18-新增成員頁面-UIView-SegmentedControl/">
+                Swift隨手紀錄Day18-新增成員頁面-UIView-SegmentedControl
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-07-09</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>防止偷懶Day18</p>
+<p>講了好久的新增成員終於要來做了＠＠</p>
+<p>預想中希望有一個UIImageView來選擇頭像</p>
+<p>當然也要一個TextField來輸入名字，以及註冊用的button</p>
+<p>然後有一個選擇守備位置的功能</p>
+<p>想了一想，用之前玩過的SegmentedControl來試試效果好了</p>
+<p>GO</p>
+<a id="more"></a>
+
+<p>照例先看看完成的畫面</p>
+<img src="/donaldwu.github.com/2017/07/09/Swift隨手紀錄Day18-新增成員頁面-UIView-SegmentedControl/Day18UIView.png">
+
+<p>先看code吧</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddMemberController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> positionArray = [<span class="string">"P"</span>, <span class="string">"C"</span>, <span class="string">"1B"</span>, <span class="string">"2B"</span>, <span class="string">"3B"</span>, <span class="string">"SS"</span>, <span class="string">"LF"</span>, <span class="string">"CF"</span>, <span class="string">"RF"</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> prefersStatusBarHidden: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> profileImage: <span class="type">UIImageView</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> image = <span class="type">UIImageView</span>()</span><br><span class="line">        image.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        image.image = <span class="type">UIImage</span>(named: <span class="string">"picture"</span>)</span><br><span class="line">        image.contentMode = .scaleAspectFill</span><br><span class="line">        image.layer.cornerRadius = <span class="number">5</span></span><br><span class="line">        image.layer.masksToBounds = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">return</span> image</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> positionSegmentedControl: <span class="type">UISegmentedControl</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> sc = <span class="type">UISegmentedControl</span>(items: [<span class="string">"P"</span>, <span class="string">"C"</span>, <span class="string">"1B"</span>, <span class="string">"2B"</span>, <span class="string">"3B"</span>, <span class="string">"SS"</span>, <span class="string">"LF"</span>, <span class="string">"CF"</span>, <span class="string">"RF"</span>])</span><br><span class="line">		sc.selectedSegmentIndex = <span class="number">0</span></span><br><span class="line">        sc.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">return</span> sc</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> nameText: <span class="type">UITextField</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> text = <span class="type">UITextField</span>()</span><br><span class="line">        text.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        text.placeholder = <span class="string">"Input Name"</span></span><br><span class="line">        text.layer.borderColor = <span class="type">UIColor</span>.cyan.cgColor</span><br><span class="line">        text.layer.borderWidth = <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> text</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> registerButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</span><br><span class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        button.backgroundColor = .cyan</span><br><span class="line">        button.setTitle(<span class="string">"Register"</span>, <span class="keyword">for</span>: .normal)</span><br><span class="line">        button.addTarget(<span class="keyword">self</span>, action: #selector(registerNewPlayer), <span class="keyword">for</span>: .touchUpInside)</span><br><span class="line">        <span class="keyword">return</span> button</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>, selector: #selector(<span class="type">AddMemberController</span>.keyboardWillShow), name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">UIKeyboardWillShow</span>, object: <span class="literal">nil</span>)</span><br><span class="line">        <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>, selector: #selector(<span class="type">AddMemberController</span>.keyboardWillHide), name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">UIKeyboardWillHide</span>, object: <span class="literal">nil</span>)</span><br><span class="line">        view.backgroundColor = .white</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> backButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">"BACK"</span>, style: .done, target: <span class="keyword">self</span>, action: #selector(backHome))</span><br><span class="line">        navigationItem.leftBarButtonItem = backButton</span><br><span class="line">        </span><br><span class="line">        view.addSubview(profileImage)</span><br><span class="line">        view.addSubview(positionSegmentedControl)</span><br><span class="line">        view.addSubview(nameText)</span><br><span class="line">        view.addSubview(registerButton)</span><br><span class="line">        </span><br><span class="line">        profileImage.topAnchor.constraint(equalTo: view.topAnchor, constant: <span class="number">64</span>).isActive = <span class="literal">true</span></span><br><span class="line">        profileImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        profileImage.heightAnchor.constraint(equalToConstant: <span class="number">130</span>).isActive = <span class="literal">true</span></span><br><span class="line">        profileImage.widthAnchor.constraint(equalToConstant: <span class="number">130</span>).isActive = <span class="literal">true</span></span><br><span class="line">        </span><br><span class="line">        positionSegmentedControl.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: <span class="number">32</span>).isActive = <span class="literal">true</span></span><br><span class="line">        positionSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        positionSegmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -<span class="number">24</span>).isActive = <span class="literal">true</span></span><br><span class="line">        positionSegmentedControl.heightAnchor.constraint(equalToConstant: <span class="number">24</span>).isActive = <span class="literal">true</span></span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        nameText.topAnchor.constraint(equalTo: positionSegmentedControl.bottomAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">        nameText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        nameText.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -<span class="number">24</span>).isActive = <span class="literal">true</span></span><br><span class="line">        nameText.heightAnchor.constraint(equalToConstant: <span class="number">50</span>).isActive = <span class="literal">true</span></span><br><span class="line">        </span><br><span class="line">        registerButton.topAnchor.constraint(equalTo: nameText.bottomAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">        registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -<span class="number">24</span>).isActive = <span class="literal">true</span></span><br><span class="line">        registerButton.heightAnchor.constraint(equalToConstant: <span class="number">50</span>).isActive = <span class="literal">true</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">registerNewPlayer</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.dismiss(animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">backHome</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.dismiss(animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">touchesBegan</span><span class="params">(<span class="number">_</span> touches: Set&lt;UITouch&gt;, with event: UIEvent?)</span></span> &#123;</span><br><span class="line">        view.endEditing(<span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">keyboardWillShow</span><span class="params">(notification: NSNotification)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> keyboardSize = (notification.userInfo?[<span class="type">UIKeyboardFrameBeginUserInfoKey</span>] <span class="keyword">as</span>? <span class="type">NSValue</span>)?.cgRectValue &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">self</span>.view.frame.origin.y == <span class="number">0</span>&#123;</span><br><span class="line">                <span class="keyword">self</span>.view.frame.origin.y -= keyboardSize.height</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">keyboardWillHide</span><span class="params">(notification: NSNotification)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> keyboardSize = (notification.userInfo?[<span class="type">UIKeyboardFrameBeginUserInfoKey</span>] <span class="keyword">as</span>? <span class="type">NSValue</span>)?.cgRectValue &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">self</span>.view.frame.origin.y != <span class="number">0</span>&#123;</span><br><span class="line">                <span class="keyword">self</span>.view.frame.origin.y += keyboardSize.height</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewWillDisappear</span><span class="params">(animated: Bool)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewWillDisappear(animated)</span><br><span class="line">        <span class="type">NSNotificationCenter</span>.defaultCenter().removeObserver(<span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>11~44先實作需要的元件，UIImageView、UISegmentedControl、UITextField、UIButton</p>
+<p>接下來在viewDidLoad將上面四個元件作為subView加入畫面跟設定anchor</p>
+<p>在UISegmentedControl內可以設定一個[Any]!的陣列</p>
+<p>這裡我們需要九個守備位置，因此放入<code>[&quot;P&quot;, &quot;C&quot;, &quot;1B&quot;, &quot;2B&quot;, &quot;3B&quot;, &quot;SS&quot;, &quot;LF&quot;, &quot;CF&quot;, &quot;RF&quot;]</code></p>
+<p>然後為了避免之後使用者忘記這個欄位把selectedSegmentIndex預設為0</p>
+<p>再來是83行點擊註冊鈕觸發的registerNewPlayer function，這邊先讓點擊後畫面在這邊退出回到上一頁</p>
+<p>之後這邊準備把資料傳到Firebase上做儲存(應該很快…..吧（￣ c￣）y▂ξ)</p>
+<p>最後是91行之後的四個function是負責處理點擊UItextField之後畫面出現keyboard的附加動作</p>
+<p>第一個function處理點擊keyboard以外的部分會收起keyboard</p>
+<p>第二跟第三個function則是分別負責在keyboard出現之後把畫面往上抬高，讓使用者依然看得到UItextField</p>
+<p>以及收起來之後畫面還原的工作，而為了處理這兩個動作必須在viewDidLoad裡面設置一個觀察者來觀察keyboard的活動</p>
+<p>因此在48、49行加入了NSNotificationCenter</p>
+<p>然而加上NSNotificationCenter之後還是得記得在畫面消失之後回收</p>
+<p>因此最後在viewWillDisappear裡面remove，完工</p>
+<p>完成的畫面動作如下</p>
+<img src="/donaldwu.github.com/2017/07/09/Swift隨手紀錄Day18-新增成員頁面-UIView-SegmentedControl/Day18.gif">
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/Swift/">#Swift</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

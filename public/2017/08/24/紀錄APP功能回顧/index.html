@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="因為中間偷懶沒寫文章，有不少是加上去但前面沒提到的
+所以稍微來回顧一下目前這個棒球紀錄APP時做了哪些功能">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="紀錄APP功能回顧">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>紀錄APP功能回顧 - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2017/08/24/紀錄APP功能回顧/">
+                紀錄APP功能回顧
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-08-24</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>因為中間偷懶沒寫文章，有不少是加上去但前面沒提到的</p>
+<p>所以稍微來回顧一下目前這個棒球紀錄APP時做了哪些功能</p>
+<a id="more"></a>
+
+<p>首先是註冊</p>
+<p>可以讓使用者選擇照片</p>
+<p>以及填入帳號資訊連接到Firebase後台進行註冊(或登入)</p>
+<p>在註冊頁面當使用者點擊註冊紐時會先判斷使用者是否有輸入資訊</p>
+<p>如果有沒輸入資訊的欄位會把placeholder變成紅色提醒使用者</p>
+<p>如果都有輸入就會連接Firebase確認email格式</p>
+<p>如果都沒有問題就完成註冊將使用者送入首頁</p>
+<img src="/donaldwu.github.com/2017/08/24/紀錄APP功能回顧/RegisterDemo.gif">
+
+<p>登入介面一樣會檢查空欄位</p>
+<p>都有資訊就連接Firebase確認是否為註冊過的用戶</p>
+<p>以及密碼是否正確</p>
+<img src="/donaldwu.github.com/2017/08/24/紀錄APP功能回顧/LoginDemo.gif">
+
+<p>在首頁可以進行新增球隊的功能</p>
+<p>會先跳出一個視窗讓使用者輸入新隊名</p>
+<p>輸入完會讓使用者可以選擇隊伍照片</p>
+<p>按下START會將隊伍資訊傳送到Firebase</p>
+<p>然後把使用者帶回首頁，在首頁會去Fetch Firebase的隊伍資料</p>
+<p>所以在首頁就會看到剛剛設定的隊徽跟隊名</p>
+<img src="/donaldwu.github.com/2017/08/24/紀錄APP功能回顧/AddTeamDemo.gif">
+
+<p>接下來點擊新增好的隊伍欄位，會將使用者帶到隊伍編輯頁面</p>
+<p>按下右上角ADD可以進行新增球員的動作</p>
+<p>在新增球員頁面可以讓使用者選擇球員的照片、守備位置、背號、姓名</p>
+<p>一樣在按下新增鈕之後會將資料送到Firebase的資料庫</p>
+<p>而在隊伍編輯頁面一樣會去Firebase尋找這支隊伍的球員資料</p>
+<img src="/donaldwu.github.com/2017/08/24/紀錄APP功能回顧/AddMemberDemo.gif">
+
+<p>接下來在新增完球隊的成員們之後</p>
+<p>可以看到右邊有顯示的守備位置的按鈕，點擊可以進行守備位置的變更</p>
+<p>將球員的欄位向左滑動可以看到兩個按鈕</p>
+<p>一個是LineUp，可以指定準備要開始的比賽中這位球員的棒次</p>
+<p>另一個是Cancel可以取消指定的棒次</p>
+<p>最後將整個表單向下拉，會跳出選項來排序目前球員排列的方式</p>
+<p>目前提供依照背號數字從小排到大以及從大排到小與依照棒次三種方式</p>
+<img src="/donaldwu.github.com/2017/08/24/紀錄APP功能回顧/MemberControllerDemo.gif">
+
+<p>當選擇完至少九棒的球員之後就可以按下下方變色的開始按鈕</p>
+<p>並選擇是先攻或者先守準備開始一場新的比賽紀錄</p>
+<p>進入紀錄頁面可以看到剛才設定的球員、棒次以及守備位置，還會先生成好敵對的欄位</p>
+<p>可以再下方TabBar選擇第二欄來記錄對手打席紀錄</p>
+<p>按下UPDATE按鈕，就會跳出選項來記錄球員打席的結果</p>
+<img src="/donaldwu.github.com/2017/08/24/紀錄APP功能回顧/RecordControllerDemo.gif">
+
+<p>再來是一場棒球比賽時間很長，不太可能長時間只開著這款APP</p>
+<p>因此就需要將資訊即時儲存起來</p>
+<p>這裡使用了CoreData來儲存兩隊的資料</p>
+<p>並使用UserDefault來儲存是否正在比賽之中的狀態</p>
+<p>使用者打開APP到首頁就會自動檢查是否有未完成的紀錄</p>
+<p>如果有就會從CoreData裡拿出資料並進入紀錄頁面</p>
+<img src="/donaldwu.github.com/2017/08/24/紀錄APP功能回顧/CoreDataDemo.gif">
+
+<p>最後是比賽狀態頁面</p>
+<p>先用一個UIView上面疊上CollectionView來做出計分板的效果</p>
+<p>不過資料目前還沒接上</p>
+<img src="/donaldwu.github.com/2017/08/24/紀錄APP功能回顧/ScoreControllerDemo.gif">
+
+<p>現在的進度就到這邊為止</p>
+<p><a href="https://github.com/DonaldlWu/HBCRecord" target="_blank" rel="noopener"> GitHub </a></p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/Swift/">#Swift</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

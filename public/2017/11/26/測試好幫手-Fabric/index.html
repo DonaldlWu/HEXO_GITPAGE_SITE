@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="在開發軟體的過程中，測試絕對是相當重要的一環
+iOS開發者絕對聽過的TestFlight就是apple提供不錯的工具
+當然也有不少其他工具可以滿足各式各樣測試的需求
+本篇就來介紹最近開始使用並覺得相當不錯的Fabric">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="測試好幫手-Fabric">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>測試好幫手-Fabric - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/">
+                測試好幫手-Fabric
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-11-26</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>在開發軟體的過程中，測試絕對是相當重要的一環</p>
+<p>iOS開發者絕對聽過的TestFlight就是apple提供不錯的工具</p>
+<p>當然也有不少其他工具可以滿足各式各樣測試的需求</p>
+<p>本篇就來介紹最近開始使用並覺得相當不錯的Fabric</p>
+<a id="more"></a>
+
+<p>一樣先從Fabric可以幫我們做到什麼功能開始</p>
+<p>首先Fabric可以讓你發佈你的app並發送郵件給你指定的測試人員下載</p>
+<p>並且配合Crashlytics可以在發布的app發生Crash時，發送email給你告知你有問題發生了</p>
+<p>那麼接下來我們就來一步一步設定Fabric吧</p>
+<p>第一步先到apple的開發者網站設定一下</p>
+<p>這裡的範例因為是全新的app所以我新建了一個appID以及Provisioning Profiles</p>
+<p>如果已經有了就不需要再做了，視情況調整即可</p>
+<p>1.建立appID</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/1.png">
+
+<p>2.建立Provisioning Profiles，這裡我只拿來測試因此選擇Development</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/2.png">
+
+<ol start="3">
+<li>選擇appID，就選剛剛建立好(要測)的那組</li>
+</ol>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/3.png">
+
+<p>最後就照著系統提示選擇你的證書、註冊的裝置(之後可以另外加)跟幫這個Provisioning Profile取個名吧</p>
+<p><a href="https://get.fabric.io/" target="_blank" rel="noopener">接下來去官網下載Fabric的mac app並順便申請一個帳號吧</a></p>
+<p><a href="https://fabric.io/kits/ios/crashlytics/install" target="_blank" rel="noopener">然後跟著官方教學進行設定</a></p>
+<p>登入後教學頁面上的api key就會幫你設定成你的帳號要用的摟，很方便ＸＤ</p>
+<p>接下來就進Fabric的app來看看吧</p>
+<p>登入之後選擇專案</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/4.png">
+
+<p>選擇第一項Crashlytics install</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/5.png">
+
+<p>因為已經經由cocoapods安裝完了，因此點擊左邊的icon</p>
+<p>這兩步都已經先完成了就Next按下去吧</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/6.png">
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/7.png">
+
+<p>再來打開專案，按下command + B編譯</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/8.png">
+
+<p>完成後按下command + R把專案跑起來一次，這時Fabric的app就會有你的專案可以選擇了</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/9.png">
+
+<p>到這邊設定都完成了，之後完成一個版本想要傳送給測試人員要怎麼做呢？</p>
+<p>其實只要Arciive你的專案</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/Archive.gif">
+
+<p>app自己就會跳出可以上傳的提醒</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/10.png">
+
+<p>接下來可以輸入要傳送給哪些測試人員的email</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/11.png">
+
+<p>還可以寫好給測試人員的訊息</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/12.png">
+
+<p>送出之後就開始上傳拉，上傳完成測試人員就會接收到郵件請測試人員下載app囉</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/13.png">
+
+<p>p.s. 如果archive玩沒有提示(或是提示的版本不是最新版)</p>
+<p>可以打開Fabric app裡面的archive的欄位按下發布就可以瞜</p>
+<p>最後，如果是第一次加入的測試人員，系統email會提示測試人員回傳他們測試手機的UUID</p>
+<p>開發人員只要去apple開發者網站加入那隻手機就ＯＫ了(下圖中Device那邊)</p>
+<img src="/donaldwu.github.com/2017/11/26/測試好幫手-Fabric/14.png">
+
+<p>之後只要有新的Archive就可以用Fabric上傳並且發佈拉～～～</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/Fabric/">#Fabric</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="防止偷懶日記Day2
+今天來重製一個之前用來學習CoreImage的Demo
+延續上篇，這次一樣用程式碼來做畫面的刻畫">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Swift-隨手紀錄Day2 - Layout">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Swift-隨手紀錄Day2 - Layout - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2017/06/23/Swift-隨手紀錄Day2-Layout/">
+                Swift-隨手紀錄Day2 - Layout
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-06-23</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>防止偷懶日記Day2</p>
+<p>今天來重製一個之前用來學習CoreImage的Demo</p>
+<p>延續上篇，這次一樣用程式碼來做畫面的刻畫</p>
+<a id="more"></a>
+
+<p>首先，畫面大概長這樣</p>
+<img src="/donaldwu.github.com/2017/06/23/Swift-隨手紀錄Day2-Layout/main.png">
+
+<p>非常簡單的畫面，中央黃色區塊是一個imageView負責顯示各種輸入的畫面</p>
+<p>左下跟右下兩個按鈕分別負責做出移動至上一張圖片跟下一張圖片的動作</p>
+<p>ＯＫ！ ＳＴＡＲＴ！</p>
+<p>首先是正中央的imageView，來到viewController</p>
+<p>在class內部實做一個imageView</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> imageView: <span class="type">UIImageView</span> = &#123;</span><br><span class="line">    <span class="keyword">let</span> image = <span class="type">UIImageView</span>()</span><br><span class="line">    image.backgroundColor = .yellow</span><br><span class="line">    image.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">    image.contentMode = .scaleAspectFit</span><br><span class="line">    <span class="keyword">return</span> image</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>這裡我們先指定背景顏色為黃色</p>
+<p>然後第4行的值設定之所以為false</p>
+<p>是為了讓之後的layout能順利運作，如果不做系統預設會是true</p>
+<p>這樣系統會替元件做resizing的動作．</p>
+<p>再來設定圖片內的顯示模式，這邊就可以看需要的模式去做調整</p>
+<p>接下來就來實現兩個button吧</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nextButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">    <span class="keyword">let</span> button = <span class="type">UIButton</span>()</span><br><span class="line">    button.backgroundColor = .gray</span><br><span class="line">    button.setTitle(<span class="string">"next&gt;"</span>, <span class="keyword">for</span>: .normal)</span><br><span class="line">    button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">return</span> button</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> prevButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">    <span class="keyword">let</span> button = <span class="type">UIButton</span>()</span><br><span class="line">    button.backgroundColor = .gray</span><br><span class="line">    button.setTitle(<span class="string">"&lt;prev"</span>, <span class="keyword">for</span>: .normal)</span><br><span class="line">    button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">return</span> button</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>為了確實知道按鈕大小的範圍我們先設定灰色當按鈕的背景色</p>
+<p>然後設定按鈕的標題</p>
+<p>然後別忘了把translatesAutoresizingMaskIntoConstraints設為false</p>
+<p>到這邊要新增的UI元件都實做了</p>
+<p>再來就是把它們放到畫面中適當的位置了</p>
+<p>第一步當然是把三個新物件放到view裡面</p>
+<p>所以改寫一下viewDidLoad</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">    view.backgroundColor = .white</span><br><span class="line">    view.addSubview(imageView)</span><br><span class="line">    view.addSubview(nextButton)</span><br><span class="line">    view.addSubview(prevButton)</span><br><span class="line">    setConstraint()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4到6行我們將剛做好的物件當作view的subView加入畫面中</p>
+<p>第7行我們呼叫了一個新定義的函數</p>
+<p>我準備在裡面設定上面三個物件的layout</p>
+<p>詳細的設定就慢慢看下去吧</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setConstraint</span><span class="params">()</span></span> &#123;     </span><br><span class="line">    imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: <span class="number">64</span>).isActive = <span class="literal">true</span></span><br><span class="line">    imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -<span class="number">100</span>).isActive = <span class="literal">true</span></span><br><span class="line">    imageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = <span class="literal">true</span></span><br><span class="line">    imageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        </span><br><span class="line">    nextButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: <span class="number">48</span>).isActive = <span class="literal">true</span></span><br><span class="line">    nextButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">    nextButton.heightAnchor.constraint(equalToConstant: <span class="number">24</span>).isActive = <span class="literal">true</span></span><br><span class="line">    nextButton.widthAnchor.constraint(equalToConstant: <span class="number">64</span>).isActive = <span class="literal">true</span></span><br><span class="line">        </span><br><span class="line">    prevButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: <span class="number">48</span>).isActive = <span class="literal">true</span></span><br><span class="line">    prevButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">    prevButton.heightAnchor.constraint(equalToConstant: <span class="number">24</span>).isActive = <span class="literal">true</span></span><br><span class="line">    prevButton.widthAnchor.constraint(equalToConstant: <span class="number">64</span>).isActive = <span class="literal">true</span>    	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要的概念是利用anchor constraint可以幫我們設定物件的上下左右跟寬高應該怎麼對齊</p>
+<p>以imageView來說我希望上緣跟畫面上緣對齊，但要保留navigationbar的高度</p>
+<p>因此定topAnchor跟整個view的topAnchor相等，並向下一個常數值64Points</p>
+<pre><code>備註：在iPhone6s下寬高分別為375 Points, 667 Points</code></pre><p>而imageView的下緣我希望保留一段空間來放兩個按鈕</p>
+<p>因此讓下緣對齊畫面下緣但向上移動100Points</p>
+<p>最後imageView的左右都是跟畫面對齊，直接等於view的anchor即可</p>
+<p>最尾端要加上isActive = true讓這個constraint實際作用</p>
+<p>同理來設定兩個按鈕</p>
+<p>右下方放置的NextButton上緣對齊imageView的下緣後下移48Points</p>
+<p>右端則與畫面右邊對齊後往內縮12Points</p>
+<p>然後設定寬跟高為64Points與24Points</p>
+<p>左下的PrevButton上緣對齊方式與NextButton相同</p>
+<p>左端則與畫面左邊對其並內縮12Points</p>
+<p>寬高也與NextButton相同</p>
+<p>OK，到這裡command + R按下去應該就可以看到我們所想像的畫面了．</p>
+<p>下次再來實作按鈕的作用跟imageView換圖．</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/Swift/">#Swift</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

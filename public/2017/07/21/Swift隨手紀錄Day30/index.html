@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="今天有一整天可以用，花了一個早上Debug…
+下午一咪眼就好幾小時噴了…
+不過好歹也是把之前留著的自製popView裡面裝著UIPickerView的功能往前推進了一點
+也學到了不少新東西
+然後TabBar也先把基本的部分做好，順便重也寫了不少部分
+但這片還是先看之前困擾我有點久的讓畫面跳出UIPickerView">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Swift隨手紀錄Day30-UIPickerView">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Swift隨手紀錄Day30-UIPickerView - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2017/07/21/Swift隨手紀錄Day30/">
+                Swift隨手紀錄Day30-UIPickerView
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-07-21</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>今天有一整天可以用，花了一個早上Debug…</p>
+<p>下午一咪眼就好幾小時噴了…</p>
+<p>不過好歹也是把之前留著的自製popView裡面裝著UIPickerView的功能往前推進了一點</p>
+<p>也學到了不少新東西</p>
+<p>然後TabBar也先把基本的部分做好，順便重也寫了不少部分</p>
+<p>但這片還是先看之前困擾我有點久的讓畫面跳出UIPickerView</p>
+<a id="more"></a>
+
+<p>一樣先看Demo</p>
+<img src="/donaldwu.github.com/2017/07/21/Swift隨手紀錄Day30/Day30Demo.gif">
+
+<p>不過其實進度已經離上一次詳細寫出內容差了大概五光年遠…</p>
+<p>認真回頭看真的不少該改寫的部分</p>
+<p>這次也是在彼得潘講過之後才真的好好了解了navigationController推送的細節</p>
+<p>然後才發現好像可以這樣做做看</p>
+<p>首先在記錄的畫面點擊UPDATE時會觸發<code>sentRecord</code>這個function</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sentRecord</span><span class="params">(sender: UIButton)</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> controller = <span class="type">RecordPickerController</span>()</span><br><span class="line">    controller.rowInRecordArray = sender.tag</span><br><span class="line">    controller.players = <span class="keyword">self</span>.players</span><br><span class="line">    controller.modalPresentationStyle = .overCurrentContext</span><br><span class="line">    present(controller, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第3, 4行是用來傳資料的可以先忽視</p>
+<p>主要是先設定送出來的controller的modalPresentationStyle</p>
+<p>然後用present送出新畫面</p>
+<p>然後來到要送出的畫面來</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RecordPickerController</span>: <span class="title">UIViewController</span>, <span class="title">UIPickerViewDelegate</span>, <span class="title">UIPickerViewDataSource</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> recordtypeArray = [<span class="string">"H"</span>, <span class="string">"BB"</span>, <span class="string">"E"</span>, <span class="string">"K"</span>, <span class="string">"SF"</span>]</span><br><span class="line">    <span class="keyword">let</span> recordDetialArray = [[<span class="string">"H"</span>, <span class="string">"2B"</span>, <span class="string">"3B"</span>, <span class="string">"HR"</span>], [<span class="string">"BB"</span>, <span class="string">"HBP"</span>], [<span class="string">"E1"</span>, <span class="string">"E2"</span>, <span class="string">"E3"</span>, <span class="string">"E4"</span>, <span class="string">"E5"</span>, <span class="string">"E6"</span>, <span class="string">"E7"</span>, <span class="string">"E8"</span>, <span class="string">"E9"</span>], [<span class="string">"K"</span>, <span class="string">"K"</span>], [<span class="string">"SF"</span>, <span class="string">"SH"</span>]]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> players = [<span class="type">Player</span>]()</span><br><span class="line">    <span class="keyword">var</span> recordPickerView: <span class="type">UIPickerView</span>!</span><br><span class="line">    <span class="keyword">var</span> tempRecord: <span class="type">String</span> = <span class="string">"H"</span></span><br><span class="line">    <span class="keyword">var</span> rowInRecordArray = <span class="type">Int</span>()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> popView: <span class="type">UIView</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> view = <span class="type">UIView</span>()</span><br><span class="line">        view.backgroundColor = .white</span><br><span class="line">        view.layer.borderWidth = <span class="number">3</span></span><br><span class="line">        view.backgroundColor = .cyan</span><br><span class="line">        view.layer.cornerRadius = <span class="number">5</span></span><br><span class="line">        view.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">return</span> view</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> addButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>()</span><br><span class="line">        button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        button.backgroundColor = .purple</span><br><span class="line">        button.layer.cornerRadius = <span class="number">5</span></span><br><span class="line">        button.layer.borderColor = <span class="type">UIColor</span>.blue.cgColor</span><br><span class="line">        button.layer.borderWidth = <span class="number">2</span></span><br><span class="line">        button.setTitle(<span class="string">"UPDATE"</span>, <span class="keyword">for</span>: .normal)</span><br><span class="line">        button.titleLabel?.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">13</span>)</span><br><span class="line">        button.addTarget(<span class="keyword">self</span>, action: #selector(sendRecordBack), <span class="keyword">for</span>: .touchUpInside)</span><br><span class="line">        <span class="keyword">return</span> button</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        view.backgroundColor = .clear</span><br><span class="line">        </span><br><span class="line">        recordPickerView = <span class="type">UIPickerView</span>()</span><br><span class="line">        recordPickerView.frame = <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="keyword">self</span>.view.bounds.width - <span class="number">12</span>, height: <span class="number">200</span>)</span><br><span class="line">        recordPickerView.showsSelectionIndicator = <span class="literal">true</span></span><br><span class="line">        recordPickerView.delegate = <span class="keyword">self</span></span><br><span class="line">        recordPickerView.dataSource = <span class="keyword">self</span></span><br><span class="line">        recordPickerView.backgroundColor = .cyan</span><br><span class="line">        </span><br><span class="line">        view.addSubview(popView)</span><br><span class="line">        </span><br><span class="line">        popView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        popView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        popView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">        popView.heightAnchor.constraint(equalToConstant: <span class="number">250</span>).isActive = <span class="literal">true</span></span><br><span class="line">        </span><br><span class="line">        popView.addSubview(recordPickerView)</span><br><span class="line">        popView.addSubview(addButton)</span><br><span class="line">        </span><br><span class="line">        addButton.bottomAnchor.constraint(equalTo: recordPickerView.bottomAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">        addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br><span class="line">        addButton.widthAnchor.constraint(equalToConstant: <span class="number">64</span>).isActive = <span class="literal">true</span></span><br><span class="line">        addButton.heightAnchor.constraint(equalToConstant: <span class="number">36</span>).isActive = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">sendRecordBack</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> controller = <span class="type">GameTabBarController</span>()</span><br><span class="line">        <span class="keyword">switch</span> rowInRecordArray &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">self</span>.players[<span class="number">0</span>].recordArray.append(tempRecord)</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">self</span>.players[<span class="number">1</span>].recordArray.append(tempRecord)</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">self</span>.players[<span class="number">2</span>].recordArray.append(tempRecord)</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">            <span class="keyword">self</span>.players[<span class="number">3</span>].recordArray.append(tempRecord)</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">            <span class="keyword">self</span>.players[<span class="number">4</span>].recordArray.append(tempRecord)</span><br><span class="line">        <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">            <span class="keyword">self</span>.players[<span class="number">5</span>].recordArray.append(tempRecord)</span><br><span class="line">        <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">            <span class="keyword">self</span>.players[<span class="number">6</span>].recordArray.append(tempRecord)</span><br><span class="line">        <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">            <span class="keyword">self</span>.players[<span class="number">7</span>].recordArray.append(tempRecord)</span><br><span class="line">        <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">            <span class="keyword">self</span>.players[<span class="number">8</span>].recordArray.append(tempRecord)</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        controller.players = <span class="keyword">self</span>.players</span><br><span class="line">        controller.modalPresentationStyle = .overFullScreen</span><br><span class="line">        present(controller, animated: <span class="literal">false</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">numberOfComponents</span><span class="params">(<span class="keyword">in</span> pickerView: UIPickerView)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(<span class="number">_</span> pickerView: UIPickerView, numberOfRowsInComponent component: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> component == <span class="number">0</span> &#123;            </span><br><span class="line">            <span class="keyword">return</span> recordtypeArray.<span class="built_in">count</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> recordDetialArray[recordPickerView.selectedRow(inComponent: <span class="number">0</span>)].<span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(<span class="number">_</span> pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int)</span></span> -&gt; <span class="type">String</span>? &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> component == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> recordtypeArray[row]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> recordDetialArray[recordPickerView.selectedRow(inComponent: <span class="number">0</span>)][row]</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(<span class="number">_</span> pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> component == <span class="number">0</span> &#123;</span><br><span class="line">            recordPickerView.reloadComponent(<span class="number">1</span>)</span><br><span class="line">            tempRecord = recordDetialArray[row][<span class="number">0</span>]</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> component == <span class="number">1</span> &#123;</span><br><span class="line">            tempRecord = recordDetialArray[recordPickerView.selectedRow(inComponent: <span class="number">0</span>)][row]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>邊寫邊覺得自己對資料的傳遞跟儲存寫得真渣 （￣ c￣）y▂ξ</p>
+<p>只差沒翻桌了…</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/Swift/">#Swift</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="防止偷懶Day11
+繼續完成pickView的功能
+首先先把之前放在RecordController.swift的紀錄陣列放到Player.swift裡面
+所以現在Player.swift長這樣">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Donald Wu">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Swift隨手紀錄Day11-PickerView-Part3">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DonaldWu&#39;s Tech Playground">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Swift隨手紀錄Day11-PickerView-Part3 - DonaldWu&#39;s Tech Playground</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/donaldwu.github.com/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/donaldwu.github.com/about/darrenwu.html">
+                    About
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/donaldwu.github.com/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/donaldwu.github.com/2017/07/02/Swift隨手紀錄Day11-PickerView-Part3/">
+                Swift隨手紀錄Day11-PickerView-Part3
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-07-02</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>防止偷懶Day11</p>
+<p>繼續完成pickView的功能</p>
+<p>首先先把之前放在RecordController.swift的紀錄陣列放到Player.swift裡面</p>
+<p>所以現在Player.swift長這樣</p>
+<a id="more"></a>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> recordArray0 = [<span class="string">"一安"</span>, <span class="string">"三振"</span>, <span class="string">"保送"</span>, <span class="string">"二安"</span>]</span><br><span class="line"><span class="keyword">var</span> recordArray1 = [<span class="string">"一安"</span>, <span class="string">"三振"</span>, <span class="string">"保送"</span>, <span class="string">"二安"</span>]</span><br><span class="line"><span class="keyword">var</span> recordArray2 = [<span class="string">"一安"</span>, <span class="string">"三振"</span>, <span class="string">"保送"</span>, <span class="string">"二安"</span>]</span><br><span class="line"><span class="keyword">var</span> recordArray3 = [<span class="string">"一安"</span>, <span class="string">"三振"</span>, <span class="string">"保送"</span>, <span class="string">"二安"</span>]</span><br><span class="line"><span class="keyword">var</span> recordArray4 = [<span class="string">"一安"</span>, <span class="string">"三振"</span>, <span class="string">"保送"</span>, <span class="string">"二安"</span>]</span><br><span class="line"><span class="keyword">var</span> recordArray5 = [<span class="string">"一安"</span>, <span class="string">"三振"</span>, <span class="string">"保送"</span>, <span class="string">"二安"</span>]</span><br><span class="line"><span class="keyword">var</span> recordArray6 = [<span class="string">"一安"</span>, <span class="string">"三振"</span>, <span class="string">"保送"</span>, <span class="string">"二安"</span>]</span><br><span class="line"><span class="keyword">var</span> recordArray7 = [<span class="string">"一安"</span>, <span class="string">"三振"</span>, <span class="string">"保送"</span>, <span class="string">"二安"</span>]</span><br><span class="line"><span class="keyword">var</span> recordArray8 = [<span class="string">"一安"</span>, <span class="string">"三振"</span>, <span class="string">"保送"</span>, <span class="string">"二安"</span>]</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Player</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> order: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> position: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> recordArray: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;</span><br><span class="line">    <span class="keyword">var</span> profileImage: <span class="type">UIImage</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二步來完成昨天在pickerView裡面實作按鈕的點擊動作</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sendRecordBack</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> rowInRecordArray &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">        recordArray0.append(tempRecord)</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        recordArray1.append(tempRecord)</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        recordArray2.append(tempRecord)</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        recordArray3.append(tempRecord)</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        recordArray4.append(tempRecord)</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        recordArray5.append(tempRecord)</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        recordArray6.append(tempRecord)</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        recordArray7.append(tempRecord)</span><br><span class="line">    <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">        recordArray8.append(tempRecord)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> controller = <span class="type">RecordController</span>(collectionViewLayout: <span class="type">UICollectionViewFlowLayout</span>())</span><br><span class="line">    present(<span class="type">UINavigationController</span>(rootViewController: controller), animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sendRecordCancel</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> controller = <span class="type">RecordController</span>(collectionViewLayout: <span class="type">UICollectionViewFlowLayout</span>())</span><br><span class="line">    present(<span class="type">UINavigationController</span>(rootViewController: controller), animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因為這邊回資料頁面會重新產生collectionView，所以直接更新陣列內容即可</p>
+<p>更新完就回到推出<code>RecordController</code></p>
+<p>取消就只要直接回前頁即可</p>
+<p>第三步回到RecordCell.swift調整一下UI以及增加一個鍵來取消存在的紀錄</p>
+<p>頁面大概長這樣</p>
+<img src="/donaldwu.github.com/2017/07/02/Swift隨手紀錄Day11-PickerView-Part3/UI.png">
+
+<p>就修改一下Anchor跟新增button</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> undoButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">    <span class="keyword">let</span> button = <span class="type">UIButton</span>()</span><br><span class="line">    button.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">    button.backgroundColor = .orange</span><br><span class="line">    button.layer.cornerRadius = <span class="number">5</span></span><br><span class="line">    button.layer.borderColor = <span class="type">UIColor</span>.blue.cgColor</span><br><span class="line">    button.layer.borderWidth = <span class="number">2</span></span><br><span class="line">    button.setTitle(<span class="string">"UNDO"</span>, <span class="keyword">for</span>: .normal)</span><br><span class="line">    button.titleLabel?.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">13</span>)</span><br><span class="line">    <span class="keyword">return</span> button</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setupView</span><span class="params">()</span></span> &#123;</span><br><span class="line">    backgroundColor = .yellow</span><br><span class="line">    addSubview(profileImage)</span><br><span class="line">    addSubview(recordText)</span><br><span class="line">    addSubview(sentButton)</span><br><span class="line">    addSubview(undoButton)</span><br><span class="line">    addSubview(orderLabel)</span><br><span class="line">    </span><br><span class="line">    profileImage.topAnchor.constraint(equalTo: <span class="keyword">self</span>.topAnchor).isActive = <span class="literal">true</span></span><br><span class="line">    profileImage.leftAnchor.constraint(equalTo: <span class="keyword">self</span>.leftAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">    profileImage.heightAnchor.constraint(equalToConstant: <span class="number">48</span>).isActive = <span class="literal">true</span></span><br><span class="line">    profileImage.widthAnchor.constraint(equalToConstant: <span class="number">48</span>).isActive = <span class="literal">true</span></span><br><span class="line">    </span><br><span class="line">    sentButton.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.centerYAnchor, constant: -<span class="number">18</span>).isActive = <span class="literal">true</span></span><br><span class="line">    sentButton.rightAnchor.constraint(equalTo: <span class="keyword">self</span>.rightAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">    sentButton.widthAnchor.constraint(equalToConstant: <span class="number">60</span>).isActive = <span class="literal">true</span></span><br><span class="line">    sentButton.heightAnchor.constraint(equalToConstant: <span class="number">32</span>).isActive = <span class="literal">true</span></span><br><span class="line">    </span><br><span class="line">    undoButton.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.centerYAnchor, constant: <span class="number">18</span>).isActive = <span class="literal">true</span></span><br><span class="line">    undoButton.rightAnchor.constraint(equalTo: <span class="keyword">self</span>.rightAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">    undoButton.widthAnchor.constraint(equalToConstant: <span class="number">60</span>).isActive = <span class="literal">true</span></span><br><span class="line">    undoButton.heightAnchor.constraint(equalToConstant: <span class="number">32</span>).isActive = <span class="literal">true</span></span><br><span class="line">    </span><br><span class="line">    recordText.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: <span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">    recordText.rightAnchor.constraint(equalTo: sentButton.leftAnchor, constant: -<span class="number">12</span>).isActive = <span class="literal">true</span></span><br><span class="line">    recordText.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.centerYAnchor).isActive = <span class="literal">true</span></span><br><span class="line">    recordText.heightAnchor.constraint(equalToConstant: <span class="number">32</span>).isActive = <span class="literal">true</span></span><br><span class="line">    </span><br><span class="line">    orderLabel.topAnchor.constraint(equalTo: profileImage.bottomAnchor).isActive = <span class="literal">true</span></span><br><span class="line">    orderLabel.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.bottomAnchor).isActive = <span class="literal">true</span></span><br><span class="line">    orderLabel.leftAnchor.constraint(equalTo: <span class="keyword">self</span>.leftAnchor).isActive = <span class="literal">true</span></span><br><span class="line">    orderLabel.rightAnchor.constraint(equalTo: recordText.leftAnchor).isActive = <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再回到RecordController.swift增加取消的動作undoRecord</p>
+<p>如果點擊的那一行有資料(recordArray(row)!= 0)，就把對應對應的players資料的最後一個資料刪除</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UICollectionViewCell</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, <span class="keyword">for</span>: indexPath) <span class="keyword">as</span>? <span class="type">RecordCell</span></span><br><span class="line">    <span class="keyword">let</span> player = players[indexPath.item]</span><br><span class="line">    cell?.backgroundColor = .blue</span><br><span class="line">    cell?.sentButton.tag = indexPath.item</span><br><span class="line">    cell?.undoButton.tag = indexPath.item</span><br><span class="line">    cell?.sentButton.addTarget(<span class="keyword">self</span>, action: #selector(sentRecord(sender:)), <span class="keyword">for</span>: .touchUpInside)</span><br><span class="line">    cell?.undoButton.addTarget(<span class="keyword">self</span>, action: #selector(uudoRecord(sender:)), <span class="keyword">for</span>: .touchUpInside)</span><br><span class="line">    cell?.profileImage.image = player.profileImage</span><br><span class="line">    cell?.orderLabel.text = player.order + <span class="string">" - "</span> + player.position</span><br><span class="line">    cell?.recordText.text = <span class="type">String</span>(describing: player.recordArray)</span><br><span class="line">    <span class="keyword">return</span> cell!</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sentRecord</span><span class="params">(sender: UIButton)</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> controller = <span class="type">RecordPickerController</span>()</span><br><span class="line">    controller.rowInRecordArray = sender.tag</span><br><span class="line">    present(controller, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">uudoRecord</span><span class="params">(sender: UIButton)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Hit Button<span class="subst">\(sender.tag)</span>"</span>)</span><br><span class="line">    <span class="keyword">switch</span> sender.tag &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">if</span> recordArray0.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">            players[<span class="number">0</span>].recordArray.remove(at: recordArray0.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">            recordArray0.remove(at: recordArray0.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">if</span> recordArray1.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">            players[<span class="number">1</span>].recordArray.remove(at: recordArray1.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">            recordArray1.remove(at: recordArray1.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">if</span> recordArray2.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">            players[<span class="number">2</span>].recordArray.remove(at: recordArray2.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">            recordArray2.remove(at: recordArray2.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">if</span> recordArray3.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">            players[<span class="number">3</span>].recordArray.remove(at: recordArray3.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">            recordArray3.remove(at: recordArray3.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        <span class="keyword">if</span> recordArray4.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">            players[<span class="number">4</span>].recordArray.remove(at: recordArray4.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">            recordArray4.remove(at: recordArray4.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        <span class="keyword">if</span> recordArray5.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">            players[<span class="number">5</span>].recordArray.remove(at: recordArray5.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">            recordArray5.remove(at: recordArray5.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        <span class="keyword">if</span> recordArray6.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">            players[<span class="number">6</span>].recordArray.remove(at: recordArray6.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">            recordArray6.remove(at: recordArray6.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        <span class="keyword">if</span> recordArray7.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">            players[<span class="number">7</span>].recordArray.remove(at: recordArray7.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">            recordArray7.remove(at: recordArray7.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">        <span class="keyword">if</span> recordArray8.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">            players[<span class="number">8</span>].recordArray.remove(at: recordArray8.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">            recordArray8.remove(at: recordArray8.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">        <span class="keyword">self</span>.collectionView?.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>執行一下看結果</p>
+<img src="/donaldwu.github.com/2017/07/02/Swift隨手紀錄Day11-PickerView-Part3/part3.gif">
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/donaldwu.github.com/tags/Swift/">#Swift</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2019/09/11/ipad-pro-配置之路/">ipad pro 配置之路 - 序</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/11/17/用-Swift-做個推播發送器並在-Homebrew-上-Release/">用 Swift 做個推播發送器並在 Homebre</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/02/07/iOS-Jenkins之旅Part2/">iOS Jenkins之旅Part2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/donaldwu.github.com/2018/01/04/無聊實驗室：vim-Codi/">無聊實驗室：vim + Codi</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/donaldwu.github.com/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
