@@ -28,7 +28,7 @@ tags: [IPAD]
 
 目前使用上是以 blink 為主，搭配 siri shortcut 可以很簡單的做到一鍵遠端連線的功能
 
-
+</br>
 
 接下來就是 git 以及編輯器拉
 
@@ -53,7 +53,7 @@ iOS 如果拉回本地還得推回去做編譯，還不是推回去就看得到�
 
 一些臨時想到的小功能在這裡實驗應該是綽綽有餘
 
-最後編輯器這裡還有個小小的遺珠之憾 [buffer](https://apps.apple.com/tw/app/buffer-editor-code-editor/id502633252)
+編輯器這裡還有個小小的遺珠之憾 [buffer](https://apps.apple.com/tw/app/buffer-editor-code-editor/id502633252)
 
 這個 app 兼具 git 與編輯器功能，編輯器甚至支援一部分基礎 vim 指令
 
@@ -63,8 +63,10 @@ iOS 如果拉回本地還得推回去做編譯，還不是推回去就看得到�
 
 不然就綜合使用體驗來說 buffer editer 真的非常棒
 
+</br>
 
-最後是偶爾需要寫一些小文檔，或是臨時的紀錄時，我會使用的 markdown app [Markdown](https://apps.apple.com/tw/app/markdown/id1472328263)
+
+偶爾需要寫一些小文檔，或是臨時的紀錄時，我會使用的 markdown app [Markdown](https://apps.apple.com/tw/app/markdown/id1472328263)
 
 真的就是個輕量的 markdown 文檔編輯器，簡單的畫面，清楚的左編寫右渲染結果呈現
 
@@ -76,8 +78,7 @@ iOS 如果拉回本地還得推回去做編譯，還不是推回去就看得到�
 
 甚至拿來作簡單的流程圖也沒問題(唯一的問題是那隻貴鬆鬆的筆啊)
 
-
-最後是這段時間的使用心得
+</br>
 
 這台 ipad 確實很大程度改變了我目前的寫作習慣(原本沒有應該也可以算改變吧_(´ཀ`」 ∠)_)
 
