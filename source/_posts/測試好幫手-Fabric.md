@@ -32,15 +32,15 @@ iOS開發者絕對聽過的TestFlight就是apple提供不錯的工具
 
 1.建立appID
 
-{% asset_img 1.png %}
+{% asset_img /1.png %}
 
 2.建立Provisioning Profiles，這裡我只拿來測試因此選擇Development
 
-{% asset_img 2.png %}
+{% asset_img ~/2.png %}
 
 3. 選擇appID，就選剛剛建立好(要測)的那組
 
-{% asset_img 3.png %}
+{% asset_img /3.png %}
 
 最後就照著系統提示選擇你的證書、註冊的裝置(之後可以另外加)跟幫這個Provisioning Profile取個名吧
 
@@ -56,26 +56,26 @@ iOS開發者絕對聽過的TestFlight就是apple提供不錯的工具
 
 登入之後選擇專案
 
-{% asset_img 4.png %}
+{% asset_img /4.png %}
 
 選擇第一項Crashlytics install
 
-{% asset_img 5.png %}
+{% asset_img /5.png %}
 
 因為已經經由cocoapods安裝完了，因此點擊左邊的icon
 
 這兩步都已經先完成了就Next按下去吧
 
-{% asset_img 6.png %}
-{% asset_img 7.png %}
+{% asset_img /6.png %}
+{% asset_img /7.png %}
 
 再來打開專案，按下command + B編譯
 
-{% asset_img 8.png %}
+{% asset_img /8.png %}
 
 完成後按下command + R把專案跑起來一次，這時Fabric的app就會有你的專案可以選擇了
 
-{% asset_img 9.png %}
+{% asset_img /9.png %}
 
 到這邊設定都完成了，之後完成一個版本想要傳送給測試人員要怎麼做呢？
 
@@ -85,11 +85,11 @@ iOS開發者絕對聽過的TestFlight就是apple提供不錯的工具
 
 app自己就會跳出可以上傳的提醒
 
-{% asset_img 10.png %}
+{% asset_img /10.png %}
 
 接下來可以輸入要傳送給哪些測試人員的email
 
-{% asset_img 11.png %}
+{% asset_img /11.png %}
 
 還可以寫好給測試人員的訊息
 
