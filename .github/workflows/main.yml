@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          git clone https://github.com/DonaldlWu/hexo-theme-alpha-dust.git
+          git clone https://github.com/DonaldlWu/hexo-theme-alpha-dust.git themes/alpha-dust
           npm i -g hexo-cli
           npm i
 
