@@ -30,8 +30,8 @@ jobs:
 
       - name: Install dependencies
         run: |
+          https://github.com/DonaldlWu/hexo-theme-freemind.386.git themes/freemind.386
           npm i -g hexo-cli
-          git clone git@github.com:DonaldlWu/hexo-theme-freemind.386.git themes/freemind.386
           npm install hexo-generator-search --save
           npm i
 
