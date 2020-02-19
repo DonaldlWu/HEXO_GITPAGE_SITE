@@ -459,3 +459,9 @@ BASH 檔案裡的 Step 3, Step 8 我就直接針對 response 的字串結果去�
 
 <img src="https://dl.dropboxusercontent.com/s/d9jnudaenk9sav1/%E7%9B%B8%E7%89%87%202020-2-19%20%E4%B8%8B%E5%8D%886%2018%2054.jpg">
 
+<br/>
+
+有空再來寫寫打包的故事 emmm ....
+
+<img src="https://dl.dropboxusercontent.com/s/02nokkwa0l06qji/%E7%9B%B8%E7%89%87%202020-2-19%20%E4%B8%8B%E5%8D%884%2028%2024.jpg">
+
