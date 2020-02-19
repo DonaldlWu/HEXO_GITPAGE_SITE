@@ -1,5 +1,5 @@
 ---
-title: 利用 Bash 簡化 iOS ipa OTA 發佈流程 (使用 Dropbox)
+title: 利用 Bash shell script 簡化 iOS ipa OTA 發佈流程 (使用 Dropbox)
 date: 2020-02-18 09:10:11
 tags: [OTA]
 ---
@@ -46,11 +46,9 @@ tags: [OTA]
 
 光寫完這一串就累了 @@
 
-所以就決定寫點 bash 幫忙處理上面那一大串雜事吧
+所以就決定寫點 Script 幫忙處理上面那一大串雜事吧
 
 因為太多了這篇就只處理從 ipa 上傳到 dropbox 到可以下載的部分
-
-以後有空再補其他像是包版的坑拉，CICD 任務的觸發等等的東西
 
 <!--more-->
 
@@ -72,7 +70,7 @@ tags: [OTA]
 
 最重要的是我在 Dropbox 的文件上找到了我需要的功能
 
-就是能利用 POST 進行*檔案的上傳*以及前面提到的*分享鏈結的產生*
+就是能利用 POST 進行**檔案的上傳**以及前面提到的**分享鏈結的產生**
 
 <br/>
 
@@ -82,7 +80,7 @@ tags: [OTA]
 
 首先打開 [Dropbox 文件](https://www.dropbox.com/developers/documentation/http/documentation)
 
-來看看這遊戲怎麼玩
+Let's go ~
 
 ### 上傳 API
 
@@ -113,13 +111,14 @@ Dropbox 也很貼心的把 <get access token> 弄成一個按鈕
 也就是最後一行的 `local_file.txt` 
 
 <br/>
+
 ### 取得分享鏈結位置
 
 一樣找到文件裡面 `create_shared_link_with_settings` 的說明
 
 ```
 curl -X POST https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings \
-    --header "Authorization: Bearer " \
+    --header "Authorization: Bearer <get access token>" \
     --header "Content-Type: application/json" \
     --data "{\"path\": \"/Homework/math/Matrices.txt\"}"
 ```
@@ -177,7 +176,8 @@ curl -X POST https://api.dropboxapi.com/2/sharing/create_shared_link_with_settin
 
 裡面就會有產生 manifest.plist 的選項了
 
-這裡給出來的是使用 Development 打包發佈 ipa 的版本(因為是給自家 QA 測試嗎)
+這裡給出來的是使用 Development 打包發佈 ipa 的版本(因為是給自家 QA 測試)
+
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -217,15 +217,15 @@ curl -X POST https://api.dropboxapi.com/2/sharing/create_shared_link_with_settin
 
 這裡面需要修改兩個地方
 
-一個是你 app 的 `bundle identifier`
+一個是用自己 app 的 `bundle identifier`
 
 直接取代掉 `{your_bundle_identifier}` 
 
-另外是將 `url`, `title` 兩個 key 底下的 demo 換成你的 ipa名稱 與 app 名稱即可
+另外是將 `url`, `title` 兩個 key 底下的 demo 換成要發佈的 ipa名稱 與 app 名稱即可
 
 <br/>
 
-manifest.plist 中還有兩個地方是等等我們在寫 BASH
+manifest.plist 中還有兩個地方是等等我們在寫 script 
 
 的時候希望能自動幫我們取代的東西
 
@@ -271,17 +271,17 @@ manifest.plist 中還有兩個地方是等等我們在寫 BASH
 
 作為大多內容不需要改動的 manifest.plist 檔案
 
-上面的範例檔案的參數就是希望能不需要每次都手動重新配制 manifest.plist
+上面範例檔案的參數就是希望能不需要每次都手動重新配制 manifest.plist
 
 因此確認寫好的 manifest.plist 正確放置在建置機器下的路徑位置，並記錄下來
 
-這樣等一下寫 BASH 檔案的時候我們就知道該去哪裡找到它了
+這樣等一下寫 script 的時候我們就知道該指定檔案的位置讓系統找到它了
 
 如此一來，只要執行完再利用改動將檔案回復為使用前的狀態
 
 就可以重複利用這個 manifest.plist 的範例檔案了
 
-以後就可以不理他囉
+設定好一次就可以不理他囉
 
 <br/>
 
@@ -291,7 +291,7 @@ manifest.plist 中還有兩個地方是等等我們在寫 BASH
 
 重新回顧一下前面的步驟，並搭配我們的工具
 
-可以重新整理出這個 BASH 檔案實際執行需要的配置與動作如下
+可以重新整理出這個 script 實際執行需要的配置與動作如下
 
 1. 接收三個外部參數 {version_number}, {build_number}, {env}
 
@@ -425,17 +425,21 @@ app 名稱，版本，下載位置等等，並觸發下載流程
 
 而網站裡也需要有 manifest.plist 的下載位置讓瀏覽器去進行下載動作
 
-為此我們必須將上傳至 Dropbox 並且取得可以用來*直接*下載的鏈結
+為此我們必須將上傳至 Dropbox 並且取得可以用來**直接**下載的鏈結
 
 依照 Dropbox 的說明，想要直接下載時
 
 可以使用 `dl.dropboxusrecontent` 的路徑來取得檔案
 
-並且可以發現下載鏈結的格式都可以統一成 `https://dl.dropboxusercontent.com/s/{dropbox_shared_link}/filename`
+並且可以發現下載鏈結的格式都可以統一成 
 
-而取得分享鏈結的 api 回傳的 url 欄位格式會是 `https://www.dropbox.com/s/{dropbox_shared_link}/filename`
+`https://dl.dropboxusercontent.com/s/{dropbox_shared_link}/filename`
 
-所以在處理下載鏈結時，只需要取出中間 {dropbox_shared_link} 部分的字串就可以了就可以了
+而取得分享鏈結的 api 回傳的 url 欄位格式會是 
+
+`https://www.dropbox.com/s/{dropbox_shared_link}/filename`
+
+所以在處理下載鏈結時，只需要取出中間 {dropbox_shared_link} 部分的字串就可以了
 
 BASH 檔案裡的 Step 3, Step 8 我就直接針對 response 的字串結果去處理
 
@@ -461,7 +465,7 @@ BASH 檔案裡的 Step 3, Step 8 我就直接針對 response 的字串結果去�
 
 <br/>
 
-有空再來寫寫打包的故事 emmm ....
+有空再來寫寫打包的故事 emmm ...
 
 <img src="https://dl.dropboxusercontent.com/s/02nokkwa0l06qji/%E7%9B%B8%E7%89%87%202020-2-19%20%E4%B8%8B%E5%8D%884%2028%2024.jpg">
 
