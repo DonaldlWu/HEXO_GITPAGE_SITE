@@ -1,7 +1,7 @@
 ---
-title: 利用 Bash shell script 簡化 iOS ipa OTA 發佈流程 (使用 Dropbox)
+title: 利用 Bash script 簡化 iOS ipa OTA 發佈流程 (使用 Dropbox)
 date: 2020-02-18 09:10:11
-tags: [OTA]
+tags: [OTA, BASH, Dropbox]
 ---
 
 去年 Fabric 確定合併回 Firebase 後就決定要另外找地方放出測試版給 QA
@@ -285,7 +285,7 @@ manifest.plist 中還有兩個地方是等等我們在寫 script
 
 <br/>
 
-### BASH 
+### BASH SCRIPT
 
 準備工作都完成了，開始來寫關鍵的執行腳本吧
 
