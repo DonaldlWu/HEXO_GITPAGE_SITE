@@ -1,6 +1,6 @@
 ---
 title: 白箱是一部真正的賽車動畫(並沒有)
-date: 2020-02-13 09:38:11
+date: 2020-03-01 07:32:22
 tags: [SHIROBAKO, Animation]
 ---
 
@@ -38,7 +38,7 @@ tags: [SHIROBAKO, Animation]
 
 我就看到畫面一句話
 
-***哭 都給我哭***
+**哭 都給我哭**
 
 <br/>
 
