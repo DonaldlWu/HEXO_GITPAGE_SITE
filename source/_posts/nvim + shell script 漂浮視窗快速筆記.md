@@ -62,7 +62,7 @@ OK，那接下來就是要實作的細節
 
 根據 lspsaga 的文件，我們可以在設定檔內加上
 
-`nnoremap <silent> nt <cmd>lua require('lspsaga.floaterm').open_float_terminal('notetaker.sh')<CR>`
+```nnoremap <silent> nt <cmd>lua require('lspsaga.floaterm').open_float_terminal('notetaker.sh')<CR>```
 
 這樣只要在 nvim 的 normal mode 依序按下 nt 就會跳出 terminal 並執行 `notaker.sh` 這個命令了
 
@@ -100,13 +100,11 @@ nvim -c "norm Go" \
 
 完成之後就可以來試試看拉
 
-按下 tr 打開檔案 -> 編輯文檔 -> `Option + Q` 離開
+按下 tr 打開檔案 -> 編輯文檔 -> `Option + q` 離開
 
 <img src=https://dl.dropboxusercontent.com/s/5g22qc0gll4phxu/notetaker.gif>
 
-用起來還不錯，但感覺編輯文檔 q 之後可以直接把整個漂浮窗關乾淨會更好
-
-有空再來進一步研究
+用起來還不錯，但其實 w 存完檔直接 `Option + q` 離開就好。
 
 <br>
 
