@@ -102,11 +102,12 @@ nvim -c "norm Go" \
 
 完成之後就可以來試試看拉
 
-按下 tr 打開檔案 -> 編輯文檔 -> `Option + q` 離開
+按下 nt 打開檔案 -> 編輯文檔 -> `Option + q` 離開
 
 <img src=https://dl.dropboxusercontent.com/s/5g22qc0gll4phxu/notetaker.gif>
 
 用起來還不錯 d(`･∀･)b
+
 
 <br>
 
