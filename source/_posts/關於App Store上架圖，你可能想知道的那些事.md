@@ -25,15 +25,25 @@ tags: [上架圖]
 
 依照目前蘋果的要求，如果我想上架一款 iOS app，那我會需要提供 
 
-|6.5 inch | 5.5 inch |
-|---------|-----------|
-| 1284 x 2778 pixels (portrait)<br>2778 x 1284 pixels (landscape)<br>1242 x 2688 pixels (portrait)<br>2688 x 1242 pixels (landscape)| 1242 x 2208 pixels (portrait)<br>2208 x 1242 pixels (landscape) |
+|6.5 inch | 
+|---------|
+| 1284 x 2778 pixels (portrait)<br>2778 x 1284 pixels (landscape)<br>1242 x 2688 pixels (portrait)<br>2688 x 1242 pixels (landscape) 
+
+<br>
+
+| 5.5 inch |
+|----------|
+|1242 x 2208 pixels (portrait)<br>2208 x 1242 pixels (landscape) |
+
+<br>
 
 如果 iPad 也可以用的話，加上
 
 |12.9 inch | 
 |----------|
 |  2048 x 2732 pixels (portrait)<br>2732 x 2048 pixels (landscape)|
+
+<br>
 
 ### 2. 調整圖片大小的工具網站
 ---
@@ -44,6 +54,8 @@ tags: [上架圖]
 
 這方法簡單粗暴，可謂獨立開發者的好朋友。
 
+<br>
+
 ### 3. iPhone 外殼？
 ---
 
@@ -53,6 +65,8 @@ tags: [上架圖]
 
 而 [MockUPhone](https://mockuphone.com) 可以幫你的圖片單純的加上手機殼，並產生直立跟橫躺兩種圖片。
 
+<br>
+
 ### 4. 我的 Side Project 想自己想畫圖？
 ---
 
@@ -60,10 +74,14 @@ tags: [上架圖]
 
 畫完還能利用他提供的 Export 功能把圖輸出。
 
+<br>
+
 ### 5. 圖像不能包含alpha通道或透明度？
 ---
 
 簡單處理可以用 preview 打開圖片 file -> export 把 alpha 的勾選清掉
+
+<br>
 
 ### 6. 因為圖片被退件？
 
