@@ -26,7 +26,7 @@ tags: [Vim]
 Swift {filename}
 ```
 
-<imgsrc=https://dl.dropboxusercontent.com/s/71n0wvay4vsoj6i/2022-03-15%2014.56.57.gif>
+<img src=https://dl.dropboxusercontent.com/s/71n0wvay4vsoj6i/2022-03-15%2014.56.57.gif>
 
 
 或是開一個新的 Swift Package
@@ -46,5 +46,5 @@ Swift test
 
 就可以看到結果拉
 
-<imgsrc=https://dl.dropboxusercontent.com/s/g5ej6wc1ipe9yfr/2022-03-15%2015.04.15.gif>
+<img src=https://dl.dropboxusercontent.com/s/g5ej6wc1ipe9yfr/2022-03-15%2015.04.15.gif>
 
