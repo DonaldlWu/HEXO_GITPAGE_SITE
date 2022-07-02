@@ -98,21 +98,21 @@ case $n in
 esac
 ```
 
-使用起來就會是
-
-<img src=https://dl.dropboxusercontent.com/s/btwg4ca94wno98g/2022-07-02%2019.46.39.gif>
-
-1. 輸入 script
-
-2. 選擇儲存位置
-
-3. 開心寫作？(![filename](filename.png))
-
 最後再新增個 alias 到 .zshrc 讓呼叫 script 更加方便
 
 ```
 alias shot='sh Screenshot.sh'
 ```
+
+使用起來就會是
+
+1. 輸入 script
+
+2. 選擇儲存位置
+
+3. 開心寫作？(`![filename](filename.png)`)
+
+<img src=https://dl.dropboxusercontent.com/s/btwg4ca94wno98g/2022-07-02%2019.46.39.gif>
 
 至於截圖完能不能再更方便一點 ...
 
